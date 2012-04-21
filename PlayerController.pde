@@ -28,6 +28,7 @@ class PlayerController extends GameObjectController {
     oldPosition.r = position.r;
     oldPosition.t = position.t;
 
+    //TODO: timer so jump has to end after 0.25 seconds or whatever
     if (input.upKeyDown) {
       velocity.r = radialMoveAmount;
     } else if (input.downKeyDown) {
@@ -42,6 +43,14 @@ class PlayerController extends GameObjectController {
       targetVelocity.t = pForward.t;
     }
 
+    //My attempt to keep target speed constant, we'll see if it works
+    if (targetVelocity.t != pForward.t) {
+      float arcLength = position.r * radians(1);
+      float constantVelocityCoefficient = abs(targetVelocity.t) / arcLength;
+      targetVelocity.t *= constantVelocityCoefficient;
+      //println("arcLength =" +arcLength+ ", targetVelocity.t = "+targetVelocity.t+",f = " + constantVelocityCoefficient);
+    }
+
     //Apply gravity
     accel.r = gravity;
 
@@ -50,7 +59,7 @@ class PlayerController extends GameObjectController {
     //accel.t = lerp(accel.t, pForward.t, curSmooth);
     velocity.t = lerp(velocity.t, targetVelocity.t, curSmooth);
 
-    println("velocity: " + velocity + "accel: " + accel);
+    //println("velocity: " + velocity + ", targetVelocity: " + targetVelocity + " accel: " + accel);
 
     //Update velocity
     velocity.r += accel.r;
