@@ -18,12 +18,11 @@ class PlayerController extends GameObjectController {
   float horizontalMomentum = 0;
 
   boolean onGround = true;
-  boolean jumpInProgress = false;
   boolean jumpReleased = true;
   float jumpDurationMs = 100;
   float lastJumpMs = 0;
   int numJumps = 0;
-  int maxJumps = 1;
+  int maxJumps = 2;
 
   boolean upKeyReleased = false;
 
@@ -43,7 +42,7 @@ class PlayerController extends GameObjectController {
       upKeyReleased = false;
 
       //Handle jump logic
-      if (jumpInProgress) {
+      if (!jumpReleased) {
         //In the middle of a jump, continue while it's still valid
         if (millis() - lastJumpMs < jumpDurationMs) {
           velocity.r = radialMoveAmount;
@@ -52,7 +51,6 @@ class PlayerController extends GameObjectController {
         //Trying to start a new jump
         if ((numJumps < maxJumps) && jumpReleased) {
           velocity.r = radialMoveAmount;
-          jumpInProgress = true;
           jumpReleased = false;
           numJumps++;
           lastJumpMs = millis();
@@ -137,7 +135,6 @@ class PlayerController extends GameObjectController {
     onGround = _onGround;
     if (onGround) {
       numJumps = 0;
-      jumpInProgress = false;
     }
   }
 
