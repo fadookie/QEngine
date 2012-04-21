@@ -8,7 +8,7 @@ class ExampleState extends QGameState {
     players = new PlayerController[numPlayers];
     for (int i = 0; i < players.length; i++) {
       players[i] = new PlayerController();
-      players[i].center = centerOfScreen;
+      players[i].center = zero;
     }
 
     player = players[0];
@@ -35,7 +35,7 @@ class ExampleState extends QGameState {
       arc.stopAngle = radians(45);
       arc.minRadius = 100;
       arc.maxRadius = 200;
-      arc.center = centerOfScreen;
+      arc.center = zero;
       arcs.add(arc);
     }
     {
@@ -44,7 +44,7 @@ class ExampleState extends QGameState {
       arc.stopAngle = radians(270);
       arc.minRadius = 200;
       arc.maxRadius = 400;
-      arc.center = centerOfScreen;
+      arc.center = zero;
       arcs.add(arc);
     }
     {
@@ -53,7 +53,7 @@ class ExampleState extends QGameState {
       arc.stopAngle = radians(180);
       arc.minRadius = 1;
       arc.maxRadius = 100;
-      arc.center = centerOfScreen;
+      arc.center = zero;
       arcs.add(arc);
     }
   }
@@ -79,6 +79,15 @@ class ExampleState extends QGameState {
   }
 
   void draw() {
+    pushMatrix();
+    //Game camera
+    translate(centerOfScreen.x, centerOfScreen.y);
+    rotate(-player.position.t);
+    pushMatrix();
+    PVector playerPos = player.position.getCartesianCoords();
+    rotate(radians(-90));
+    translate(-playerPos.x, -playerPos.y);
+
     background(66);
 
 
@@ -87,7 +96,7 @@ class ExampleState extends QGameState {
       pushStyle();
       fill(99);
       ellipseMode(RADIUS);
-      ellipse(centerOfScreen.x, centerOfScreen.y, worldCoreSize, worldCoreSize);
+      ellipse(zero.x, zero.y, worldCoreSize, worldCoreSize);
       popStyle();
     }
 
@@ -102,6 +111,8 @@ class ExampleState extends QGameState {
         player.debugDraw();
       }
     }
+    popMatrix();
+    popMatrix();
   }
 
   void mouseDragged() {

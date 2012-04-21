@@ -29,6 +29,8 @@ PVector back;
 PVector left;
 /** Vector facing the right of the screen */
 PVector right;
+/** Zero vector */
+PVector zero;
 /** 2D Cartesian point representing the center of the screen */
 PVector centerOfScreen;
 
@@ -67,6 +69,7 @@ void setup() {
   back = new PVector(0, -1);
   left = new PVector(1, 0);
   right = new PVector(-1, 0);
+  zero = new PVector(0, 0);
   centerOfScreen = new PVector(width / 2, height / 2);
 
   gWorkVectorA = new PVector();
