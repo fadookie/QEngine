@@ -18,4 +18,8 @@ class PolarCoord {
         r * sin(t)
     );
   }
+
+  String toString() {
+    return "[ "+r+", "+t+" ]";
+  }
 }

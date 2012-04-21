@@ -7,7 +7,10 @@
  */
 class GameObjectController {
   PVector heading;
+
   PolarCoord position;
+  PVector center;
+
   QSprite sprite;
   String tag = "";
 
@@ -22,7 +25,10 @@ class GameObjectController {
 
   void construct() {
     heading = new PVector();
+
     position = new PolarCoord();
+    center = new PVector();
+
     sprite = new QSprite();
 
     workVectorA = new PVector();
@@ -30,11 +36,12 @@ class GameObjectController {
     workVectorC = new PVector();
   }
 
-  void setPosition(float x, float y) {
-    sprite.position.x = x;
-    sprite.position.y = y;
+  void setPosition(float r, float t) {
+    position.r = r;
+    position.t = t;
   }
 
+  //TODO: clean up this cartesian shit
   PVector getPosition() {
     return sprite.position.get();
   }
@@ -62,10 +69,35 @@ class GameObjectController {
   }
 
   void update() {
+    for (Arc arc : arcs) {
+      if (arc.collidesWith(position)) {
+        arc._color = color(255, 0, 0);
+      } else {
+        arc._color = color(255, 255, 255);
+      }
+    }
   }
 
   void draw() {
     sprite.draw();
+  }
+
+  void debugDraw() {
+    pushStyle();
+    PVector pos = position.getCartesianCoords();
+    ellipseMode(RADIUS);
+    pushMatrix();
+    translate(center.x, center.y);
+
+    pushMatrix();
+    translate(pos.x, pos.y);
+
+    ellipse(0, 0, 10, 10);
+
+    popMatrix();
+
+    popMatrix();
+    popStyle();
   }
 
   String toString() {

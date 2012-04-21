@@ -49,6 +49,8 @@ PVector gWorkVectorC;
  */
 PFont helvetica48; //A default font
 
+ArrayList<Arc> arcs;
+
 
 //What follows are engine functions. I reccommend defining logic specific to your game inside of a series of QGameState-derived classes.
 
