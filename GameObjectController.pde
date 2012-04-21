@@ -7,6 +7,7 @@
  */
 class GameObjectController {
   PVector heading;
+  PolarCoord position;
   QSprite sprite;
   String tag = "";
 
@@ -21,6 +22,7 @@ class GameObjectController {
 
   void construct() {
     heading = new PVector();
+    position = new PolarCoord();
     sprite = new QSprite();
 
     workVectorA = new PVector();
