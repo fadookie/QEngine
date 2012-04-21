@@ -28,6 +28,36 @@ class Arc {
               maxRadius < point.r );
   }
 
+  CollisionInfo collisionInfo(PolarCoord point) {
+    CollisionInfo info = new CollisionInfo();
+    info.collides = collidesWith(point);
+
+    if (!(minRadius > point.r ||
+          maxRadius < point.r) ) {
+
+      float distFromMax = point.r - maxRadius; 
+      float distFromMin = point.r - minRadius;
+      if (distFromMax < distFromMin) {
+        info.type = info.ABOVE_TYPE;
+      } else {
+        info.type = info.BELOW_TYPE;
+      }
+
+    } else if (!(startAngle > point.t ||
+        stopAngle < point.t)) {
+
+      float distFromStart = point.t - startAngle; 
+      float distFromStop = point.t - stopAngle;
+      if (distFromStart < distFromStop) {
+        info.type = info.COUNTERCLOCKWISE_TYPE;
+      } else {
+        info.type = info.CLOCKWISE_TYPE;
+      }
+    }
+
+    return info;
+  }
+
 
   void debugDraw() {
     pushStyle();
