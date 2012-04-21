@@ -47,6 +47,15 @@ class ExampleState extends QGameState {
       arc.center = centerOfScreen;
       arcs.add(arc);
     }
+    {
+      Arc arc = new Arc();
+      arc.startAngle = radians(90);
+      arc.stopAngle = radians(180);
+      arc.minRadius = 1;
+      arc.maxRadius = 100;
+      arc.center = centerOfScreen;
+      arcs.add(arc);
+    }
   }
 
   void cleanup() {

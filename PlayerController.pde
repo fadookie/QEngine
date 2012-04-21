@@ -78,17 +78,15 @@ class PlayerController extends GameObjectController {
     super.update();
 
     for (Arc arc : collidesWith) {
-      CollisionInfo info = arc.collisionInfo(position);
-      if (info.collides) { //should always be true here but doesn't hurt to double check
-        if (info.type == info.ABOVE_TYPE ||
-            info.type == info.BELOW_TYPE) {
-          velocity.r = pForward.r;
-          position.r = oldPosition.r;
-        } else if (info.type == info.COUNTERCLOCKWISE_TYPE ||
-                   info.type == info.CLOCKWISE_TYPE) {
-          velocity.t = pForward.t;
-          position.t = oldPosition.t;
-        }
+      CollisionInfo info = arc.collisionInfo(oldPosition);
+      if (info.type == info.ABOVE_TYPE ||
+          info.type == info.BELOW_TYPE) {
+        velocity.r = pForward.r;
+        position.r = oldPosition.r;
+      } else if (info.type == info.COUNTERCLOCKWISE_TYPE ||
+                 info.type == info.CLOCKWISE_TYPE) {
+        velocity.t = pForward.t;
+        position.t = oldPosition.t;
       }
     }
 
