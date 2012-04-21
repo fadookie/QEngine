@@ -53,6 +53,7 @@ PFont helvetica48; //A default font
 
 ArrayList<Arc> arcs;
 PolarCoord pForward;
+float fortyFiveRadians;
 
 float worldCoreSize = 50;
 
@@ -78,6 +79,7 @@ void setup() {
 
   //helvetica48 = loadFont("Helvetica-48.vlw");
   pForward = new PolarCoord();
+  fortyFiveRadians = radians(45);
 
   //Code to add handler for mouse wheel events, commenting out for js compatibility
   /*

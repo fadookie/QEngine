@@ -22,7 +22,7 @@ class PlayerController extends GameObjectController {
   float jumpDurationMs = 100;
   float lastJumpMs = 0;
   int numJumps = 0;
-  int maxJumps = 2;
+  int maxJumps = 100;
 
   boolean upKeyReleased = false;
 

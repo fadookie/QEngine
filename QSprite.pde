@@ -9,11 +9,16 @@ class QSprite {
   static final int INVALID = 0;
   static final int RECT = 1;
   static final int ELLIPSE = 2;
+  static final int PIMAGE = 3;
 
   int type;
   PVector position;
   PVector size;
   color fillColor;
+  PImage image;
+  String imageFileName;
+  int imageMode = CORNER;
+  float rotation;
 
   //For dummy objects
   QSprite() {
@@ -32,18 +37,32 @@ class QSprite {
     fillColor = color(120, 30, 90);
   }
 
+  void setImage(String _fileName) {
+    type = PIMAGE;
+    imageFileName = _fileName;
+    image = loadImage(imageFileName);
+    size.x = image.width;
+    size.y = image.height;
+  }
+
   void draw() {
     pushMatrix();
     pushStyle();
     translate(position.x, position.y);
+    rotate(rotation);
     fill(fillColor);
 
     if (RECT == type) {
       rectMode(CENTER);
-      rect(position.x, position.y, size.x, size.y);
+      rect(0, 0, size.x, size.y);
     } else if (ELLIPSE == type) {
       ellipseMode(CENTER);
-      ellipse(position.x, position.y, size.x, size.y);
+      ellipse(0, 0, size.x, size.y);
+    } else if (PIMAGE == type) {
+      if (image instanceof PImage) {
+        imageMode(imageMode);
+        image(image, 0, 0, size.x, size.y);
+      }
     } else {
       println("The sprite type " + type + " is not valid. Not drawing.");
     }

@@ -4,14 +4,19 @@ class Arc {
   float stopAngle;
   float maxRadius;
   float minRadius;
-  PVector center;
+  PVector pole;
+  PolarCoord center;
+  QSprite sprite;
 
   //For debugDraw:
   color _color;
 
   Arc() {
-    center = new PVector();
+    pole = zero;
+    center = new PolarCoord();
     _color = color(0, 0, 0);
+    sprite = new QSprite();
+    sprite.imageMode = CENTER;
   }
 
   boolean collidesWith(Arc otherArc) {
@@ -61,6 +66,16 @@ class Arc {
   }
 
 
+  void draw() {
+    center.r = minRadius + ((maxRadius - minRadius) / 2); //Had to fudge this positioning, not sure why
+    center.t = startAngle + ((stopAngle - startAngle) / 2);
+    sprite.position = center.getCartesianCoords();
+    sprite.rotation = center.t;
+    if (sprite.type > QSprite.INVALID) {
+      sprite.draw();
+    }
+  }
+
   void debugDraw() {
     pushStyle();
     noFill();
@@ -71,7 +86,7 @@ class Arc {
 
     pushMatrix();
 
-    translate(center.x, center.y);
+    translate(pole.x, pole.y);
 
     //Draw min and max arc
     arc(0, 0, maxRadius, maxRadius, startAngle, stopAngle);
@@ -88,6 +103,10 @@ class Arc {
     PVector stopMaxC = stopMaxP.getCartesianCoords();
     line(startMinC.x, startMinC.y, startMaxC.x, startMaxC.y);
     line(stopMinC.x, stopMinC.y, stopMaxC.x, stopMaxC.y);
+
+    //Draw center
+    ellipseMode(RADIUS);
+    ellipse(sprite.position.x, sprite.position.y, 10, 10);
 
     popMatrix();
     popStyle();

@@ -35,16 +35,23 @@ class ExampleState extends QGameState {
       arc.stopAngle = radians(45);
       arc.minRadius = 100;
       arc.maxRadius = 200;
-      arc.center = zero;
       arcs.add(arc);
     }
     {
       Arc arc = new Arc();
       arc.startAngle = radians(180);
-      arc.stopAngle = radians(270);
+      arc.stopAngle = radians(355);
+      arc.minRadius = 200;
+      arc.maxRadius = 220;
+      arcs.add(arc);
+    }
+    {
+      Arc arc = new Arc();
+      arc.startAngle = radians(90);
+      arc.stopAngle = radians(180);
       arc.minRadius = 200;
       arc.maxRadius = 400;
-      arc.center = zero;
+      arc.sprite.setImage("temparc.png");
       arcs.add(arc);
     }
     {
@@ -53,7 +60,6 @@ class ExampleState extends QGameState {
       arc.stopAngle = radians(180);
       arc.minRadius = 1;
       arc.maxRadius = 100;
-      arc.center = zero;
       arcs.add(arc);
     }
   }
@@ -101,6 +107,7 @@ class ExampleState extends QGameState {
     }
 
     for (Arc arc : arcs) {
+      arc.draw();
       if (DEBUG) {
         arc.debugDraw();
       }
