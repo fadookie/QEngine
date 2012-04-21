@@ -59,8 +59,6 @@ class PlayerController extends GameObjectController {
     //accel.t = lerp(accel.t, pForward.t, curSmooth);
     velocity.t = lerp(velocity.t, targetVelocity.t, curSmooth);
 
-    //println("velocity: " + velocity + ", targetVelocity: " + targetVelocity + " accel: " + accel);
-
     //Update velocity
     velocity.r += accel.r;
     velocity.t += accel.t;
@@ -71,6 +69,10 @@ class PlayerController extends GameObjectController {
 
     //Don't let the player fall through the world, for now.
     position.r = constrain(position.r, worldCoreSize, Float.MAX_VALUE);
+
+
+    //Constrain position to 0-2PI
+    position.t = QMath.wrapTwoPI(position.t);
 
     //Check collisions, etc.
     super.update();
@@ -85,6 +87,8 @@ class PlayerController extends GameObjectController {
       position.r = oldPosition.r;
       position.t = oldPosition.t;
     }
+
+    //println("position: "+position+" velocity: " + velocity + ", targetVelocity: " + targetVelocity + " accel: " + accel);
 
   }
 

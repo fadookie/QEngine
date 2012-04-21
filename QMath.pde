@@ -17,7 +17,31 @@ static class QMath {
     return v;
   }
 
-  boolean isFurtherThan(float a, float b, float range) {
+  static boolean isFurtherThan(float a, float b, float range) {
     return (abs(a - b) > range);
   }
+
+  // modulu - similar to matlab's mod()
+  // result is always possitive. not similar to fmod()
+  // Mod(-3,4)= 1   fmod(-3,4)= -3
+  static float mod(float x, float y)
+  {
+      if (0 == y)
+          return x;
+
+      return x - y * floor(x/y);
+  }
+
+  // wrap [rad] angle to [-PI..PI)
+  static float wrapPosNegPI(float fAng)
+  {
+      return mod(fAng + PI, TWO_PI) - PI;
+  }
+
+  // wrap [rad] angle to [0..TWO_PI)
+  static float wrapTwoPI(float fAng)
+  {
+      return mod(fAng, TWO_PI);
+  }
+  
 }
