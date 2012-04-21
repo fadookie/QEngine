@@ -10,7 +10,7 @@
  * A define for whether or not to build the engine in "debug" mode.
  * This generally means more output to the console and possibly some extra stuff drawn to the screen.
  */
-static final boolean DEBUG = false;
+static final boolean DEBUG = true;
 
 /** This property holds how much time elapsed since QGameState.update() was last called, in milliseconds.
  * Please don't modify this from your code. */

@@ -81,16 +81,26 @@ class ExampleState extends QGameState {
   void draw() {
     background(66);
 
+
+    //Draw world core for debugging
+    if (DEBUG) {
+      pushStyle();
+      fill(99);
+      ellipseMode(RADIUS);
+      ellipse(centerOfScreen.x, centerOfScreen.y, worldCoreSize, worldCoreSize);
+      popStyle();
+    }
+
     for (Arc arc : arcs) {
-      arc.debugDraw();
+      if (DEBUG) {
+        arc.debugDraw();
+      }
     }
 
     for (PlayerController player : players) {
-      player.debugDraw();
-    }
-
-    //Debug draw
-    if (DEBUG) {
+      if (DEBUG) {
+        player.debugDraw();
+      }
     }
   }
 
