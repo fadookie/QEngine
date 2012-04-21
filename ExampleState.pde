@@ -2,11 +2,23 @@ class ExampleState extends QGameState {
   boolean gameOver = false;
   int numPlayers = 1;
   PlayerController[] players;
+  ArrayList<Arc> arcs;
 
   void setup() {
     players = new PlayerController[numPlayers];
     for (int i = 0; i < players.length; i++) {
       players[i] = new PlayerController();
+    }
+
+    arcs = new ArrayList<Arc>(); 
+    {
+      Arc arc = new Arc();
+      arc.startAngle = radians(0);
+      arc.stopAngle = radians(45);
+      arc.minRadius = 100;
+      arc.maxRadius = 200;
+      arc.center = centerOfScreen;
+      arcs.add(arc);
     }
   }
 
@@ -29,6 +41,9 @@ class ExampleState extends QGameState {
   void draw() {
     background(66);
 
+    for (Arc arc : arcs) {
+      arc.debugDraw();
+    }
     //Debug draw
     if (DEBUG) {
     }
