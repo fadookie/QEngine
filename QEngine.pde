@@ -60,7 +60,7 @@ float worldCoreSize = 50;
 void setup() {
   /** Set your size here */
   size(1024, 768);
-  smooth();
+  //smooth();
 
   states = new QStack();
   forward = new PVector(0, 1);

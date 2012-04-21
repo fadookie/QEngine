@@ -10,16 +10,27 @@ class PlayerController extends GameObjectController {
   QInput input;
   PolarCoord oldPosition;
   PolarCoord targetVelocity;
-  float radialMoveAmount = 20;
-  float angularMoveAmount;
+  float radialMoveAmount = 15;
+  float angluarMoveAmountDegrees = 25;
+  float angularMoveAmount; //Angular move amount in radians
   float gravity = -1;
   float curSmooth = 0.2;
   float horizontalMomentum = 0;
 
+  boolean onGround = true;
+  boolean jumpInProgress = false;
+  boolean jumpReleased = true;
+  float jumpDurationMs = 100;
+  float lastJumpMs = 0;
+  int numJumps = 0;
+  int maxJumps = 1;
+
+  boolean upKeyReleased = false;
+
   PlayerController() {
     super();
     input = new QInput();
-    angularMoveAmount = radians(10);
+    angularMoveAmount = radians(angluarMoveAmountDegrees);
     oldPosition = new PolarCoord();
     targetVelocity = new PolarCoord();
   }
@@ -28,11 +39,32 @@ class PlayerController extends GameObjectController {
     oldPosition.r = position.r;
     oldPosition.t = position.t;
 
-    //TODO: timer so jump has to end after 0.25 seconds or whatever
     if (input.upKeyDown) {
-      velocity.r = radialMoveAmount;
-    } else if (input.downKeyDown) {
-      velocity.r = -radialMoveAmount;
+      upKeyReleased = false;
+
+      //Handle jump logic
+      if (jumpInProgress) {
+        //In the middle of a jump, continue while it's still valid
+        if (millis() - lastJumpMs < jumpDurationMs) {
+          velocity.r = radialMoveAmount;
+        }
+      } else {
+        //Trying to start a new jump
+        if ((numJumps < maxJumps) && jumpReleased) {
+          velocity.r = radialMoveAmount;
+          jumpInProgress = true;
+          jumpReleased = false;
+          numJumps++;
+          lastJumpMs = millis();
+          setOnGround(false);
+        }
+      }
+    } else if (!upKeyReleased) {
+      upKeyReleased = true;
+      jumpReleased = true;
+      if (velocity.r > 0) {
+        velocity.r = 0;
+      }
     }
 
     if (input.leftKeyDown) {
@@ -70,6 +102,9 @@ class PlayerController extends GameObjectController {
     //Don't let the player fall through the world, for now.
     position.r = constrain(position.r, worldCoreSize, Float.MAX_VALUE);
 
+    if (position.r == worldCoreSize) {
+      setOnGround(true);
+    }
 
     //Constrain position to 0-2PI
     position.t = QMath.wrapTwoPI(position.t);
@@ -83,6 +118,10 @@ class PlayerController extends GameObjectController {
           info.type == info.BELOW_TYPE) {
         velocity.r = pForward.r;
         position.r = oldPosition.r;
+
+        if (info.type == info.ABOVE_TYPE) {
+          setOnGround(true);
+        }
       } else if (info.type == info.COUNTERCLOCKWISE_TYPE ||
                  info.type == info.CLOCKWISE_TYPE) {
         velocity.t = pForward.t;
@@ -92,6 +131,14 @@ class PlayerController extends GameObjectController {
 
     //println("position: "+position+" velocity: " + velocity + ", targetVelocity: " + targetVelocity + " accel: " + accel);
 
+  }
+
+  void setOnGround(boolean _onGround) {
+    onGround = _onGround;
+    if (onGround) {
+      numJumps = 0;
+      jumpInProgress = false;
+    }
   }
 
   void draw() {
