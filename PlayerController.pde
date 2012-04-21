@@ -4,28 +4,79 @@
  * @author Eliot Lash
  * @copyright Copyright (c) 2010-2012 Eliot Lash
  */
+
+
 class PlayerController extends GameObjectController {
   QInput input;
-  float radialMoveAmount = 2;
+  PolarCoord oldPosition;
+  PolarCoord targetVelocity;
+  float radialMoveAmount = 20;
   float angularMoveAmount;
+  float gravity = -1;
+  float curSmooth = 0.2;
+  float horizontalMomentum = 0;
 
   PlayerController() {
+    super();
     input = new QInput();
-    angularMoveAmount = radians(2);
+    angularMoveAmount = radians(10);
+    oldPosition = new PolarCoord();
+    targetVelocity = new PolarCoord();
   }
 
   void update() {
-    super.update();
+    oldPosition.r = position.r;
+    oldPosition.t = position.t;
 
     if (input.upKeyDown) {
-      position.r += radialMoveAmount;
+      velocity.r = radialMoveAmount;
     } else if (input.downKeyDown) {
-      position.r -= radialMoveAmount;
-    } else if (input.leftKeyDown) {
-      position.t -= angularMoveAmount;
-    } else if (input.rightKeyDown) {
-      position.t += angularMoveAmount;
+      velocity.r = -radialMoveAmount;
     }
+
+    if (input.leftKeyDown) {
+      targetVelocity.t = -angularMoveAmount;
+    } else if (input.rightKeyDown) {
+      targetVelocity.t = angularMoveAmount;
+    } else {
+      targetVelocity.t = pForward.t;
+    }
+
+    //Apply gravity
+    accel.r = gravity;
+
+    //Modify horizontal momentum
+    //curSmooth *= horizontalTraction;
+    //accel.t = lerp(accel.t, pForward.t, curSmooth);
+    velocity.t = lerp(velocity.t, targetVelocity.t, curSmooth);
+
+    println("velocity: " + velocity + "accel: " + accel);
+
+    //Update velocity
+    velocity.r += accel.r;
+    velocity.t += accel.t;
+
+    //Update position
+    position.r += velocity.r;
+    position.t += velocity.t;
+
+    //Don't let the player fall through the world, for now.
+    position.r = constrain(position.r, worldCoreSize, Float.MAX_VALUE);
+
+    //Check collisions, etc.
+    super.update();
+
+    for (Arc arc : collidesWith) {
+    }
+
+    //temp
+    if (!collidesWith.isEmpty()) {
+      velocity.r = pForward.r;
+      velocity.t = pForward.t;
+      position.r = oldPosition.r;
+      position.t = oldPosition.t;
+    }
+
   }
 
   void draw() {

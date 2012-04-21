@@ -9,7 +9,10 @@ class GameObjectController {
   PVector heading;
 
   PolarCoord position;
+  PolarCoord velocity;
+  PolarCoord accel;
   PVector center;
+  ArrayList<Arc> collidesWith;
 
   QSprite sprite;
   String tag = "";
@@ -27,7 +30,10 @@ class GameObjectController {
     heading = new PVector();
 
     position = new PolarCoord();
+    velocity = new PolarCoord();
+    accel = new PolarCoord();
     center = new PVector();
+    collidesWith = new ArrayList<Arc>();
 
     sprite = new QSprite();
 
@@ -69,9 +75,12 @@ class GameObjectController {
   }
 
   void update() {
+    collidesWith.clear();
+
     for (Arc arc : arcs) {
       if (arc.collidesWith(position)) {
         arc._color = color(255, 0, 0);
+        collidesWith.add(arc);
       } else {
         arc._color = color(255, 255, 255);
       }

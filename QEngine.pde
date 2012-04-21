@@ -50,6 +50,9 @@ PVector gWorkVectorC;
 PFont helvetica48; //A default font
 
 ArrayList<Arc> arcs;
+PolarCoord pForward;
+
+float worldCoreSize = 50;
 
 
 //What follows are engine functions. I reccommend defining logic specific to your game inside of a series of QGameState-derived classes.
@@ -71,6 +74,7 @@ void setup() {
   gWorkVectorC = new PVector();
 
   //helvetica48 = loadFont("Helvetica-48.vlw");
+  pForward = new PolarCoord();
 
   //Code to add handler for mouse wheel events, commenting out for js compatibility
   /*
