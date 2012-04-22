@@ -49,8 +49,38 @@ class ExampleState extends QGameState {
     addArc(retardedAngle(228), retardedAngle(123.5), ring);
     addArc(retardedAngle(77), retardedAngle(39), ring);
     addArc(retardedAngle(23), retardedAngle(245), ring);
-    //addArc(retardedAngle(N), retardedAngle(N), ring);
+    
+    ring = 4;
+    addArc(retardedAngle(346), retardedAngle(334), ring);
+    addArc(retardedAngle(272), retardedAngle(254), ring);
+    addArc(retardedAngle(241), retardedAngle(148), ring);
+    addArc(retardedAngle(124), retardedAngle(100), ring);
+    addArc(retardedAngle(92), retardedAngle(358), ring);
 
+    ring = 5;
+    addArc(retardedAngle(287), retardedAngle(206), ring);
+    addArc(retardedAngle(195), retardedAngle(135), ring);
+    addArc(retardedAngle(124), retardedAngle(325), ring);
+
+    ring = 6;
+    addArc(retardedAngle(357), retardedAngle(285), ring);
+    addArc(retardedAngle(262), retardedAngle(240), ring);
+    addArc(retardedAngle(231), retardedAngle(167), ring);
+    addArc(retardedAngle(156), retardedAngle(93), ring);
+    addArc(retardedAngle(85), retardedAngle(47), ring);
+    addArc(retardedAngle(41), retardedAngle(10), ring);
+
+    ring = 7;
+    addArc(retardedAngle(327), retardedAngle(258), ring);
+    addArc(retardedAngle(251), retardedAngle(215), ring);
+    addArc(retardedAngle(183), retardedAngle(132), ring);
+    addArc(retardedAngle(125), retardedAngle(6), ring);
+
+    ring = 8;
+    addArc(retardedAngle(346), retardedAngle(303), ring);
+    addArc(retardedAngle(278), retardedAngle(203), ring);
+    addArc(retardedAngle(166), retardedAngle(104), ring);
+    addArc(retardedAngle(84), retardedAngle(21), ring);
 
     foreground = new Tileset(6, 6);
     //foreground.pos.x = 0;
@@ -136,7 +166,7 @@ class ExampleState extends QGameState {
     translate(-playerPos.x, -playerPos.y);
 
     background(66);
-    //background.draw(playerPos);
+    background.draw(playerPos);
 
     for (PlayerController player : players) {
       if (DEBUG) {
