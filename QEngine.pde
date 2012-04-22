@@ -4,9 +4,10 @@
  * @author Eliot Lash
  * @copyright Copyright (c) 2010-2012 Eliot Lash
  */
- 
-//import processing.opengl.*;
 
+import processing.opengl.*;
+import javax.media.opengl.GL;
+PGraphicsOpenGL pgl;
 
 /**
  * A define for whether or not to build the engine in "debug" mode.
@@ -69,6 +70,8 @@ void setup() {
   /** Set your size here */
   size(1024, 768, OPENGL);
   //smooth();
+
+  pgl = (PGraphicsOpenGL)g;
 
   states = new QStack();
   forward = new PVector(0, 1);

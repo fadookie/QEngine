@@ -5,6 +5,7 @@ class ExampleState extends QGameState {
   PlayerController player;
   Tileset background;
   Tileset foreground;
+  PImage starfield;
 
   void setup() {
     players = new PlayerController[numPlayers];
@@ -93,6 +94,8 @@ class ExampleState extends QGameState {
     background.pos.x = -3072; //(1024 tile size * 6 tiles) / 2
     background.pos.y = -3072;
     background.loadImagesFromPrefix("planetoid-bg/planetoid-bg_");
+
+    starfield = loadImage("Stars_BG.png");
   }
 
   //Convert retarded counterclockwise degrees from my retarded protractor to clockwise radians
@@ -157,6 +160,28 @@ class ExampleState extends QGameState {
   void draw() {
     PVector playerPos = player.position.getCartesianCoords();
 
+    //background(0);
+
+    //Draw starfield
+    if (starfield.width > 0) {
+      float playerPositionRatio = player.position.t / TWO_PI;
+      playerPositionRatio -= 1;//Invert it
+      textureMode(NORMALIZED);
+      //PTexture tex = pgl.getTexture();
+      //pgl.pgl.glTexParameterf(tex.glTarget, PGL.GL_TEXTURE_WRAP_S, PGL.GL_REPEAT);
+      //beginShape();
+      //texture(starfield);
+      //vertex(0, 0, 0, playerPositionRatio, 0);
+      //vertex(width, 0, 0, playerPositionRatio + 1, 0);
+      //vertex(width, height, 0, playerPositionRatio + 1, 1);
+      //vertex(0, height, 0, playerPositionRatio, 1);
+      //endShape();
+
+      image(starfield, playerPositionRatio * width, 0);
+      image(starfield, (playerPositionRatio * width) + width, 0);
+    }
+
+
     pushMatrix();
     //Game camera
     translate(centerOfScreen.x, centerOfScreen.y);
@@ -165,7 +190,6 @@ class ExampleState extends QGameState {
     //scale(0.1);
     translate(-playerPos.x, -playerPos.y);
 
-    background(66);
     background.draw(playerPos);
 
     for (PlayerController player : players) {
