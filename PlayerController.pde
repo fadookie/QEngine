@@ -139,12 +139,9 @@ class PlayerController extends GameObjectController {
         position.t = oldPosition.t;
         //println("horizontal collision");
       } else {
-        //This is an unknown collision type, let's stop movment to be safe so we don't fall through the floor or some shit.
-        println("Collision type : " + info.type);
+        //This is an unknown collision type, let's stop vertical to be safe so we don't fall through the floor or some shit.
         velocity.r = pForward.r;
-        velocity.t = pForward.t;
         position.r = oldPosition.r;
-        position.t = oldPosition.t;
       }
     }
 

@@ -34,16 +34,17 @@ class ExampleState extends QGameState {
     arcs = new ArrayList<Arc>(); 
     {
       Arc arc = new Arc();
-      arc.startAngle = radians(254);
-      arc.stopAngle = radians(211);
+      arc.startAngle = retardedAngle(211);
+      arc.stopAngle = TWO_PI;
       arc.minRadius = 554;
       arc.maxRadius = 617;
       arcs.add(arc);
     }
+
     {
       Arc arc = new Arc();
-      arc.startAngle = radians(270);
-      arc.stopAngle = radians(45);
+      arc.startAngle = 0;
+      arc.stopAngle = retardedAngle(254);
       arc.minRadius = 554;
       arc.maxRadius = 617;
       arcs.add(arc);
@@ -60,6 +61,11 @@ class ExampleState extends QGameState {
     background.pos.x = -3072; //(1024 tile size * 6 tiles) / 2
     background.pos.y = -3072;
     background.loadImagesFromPrefix("planetoid-bg/planetoid-bg_");
+  }
+
+  //Convert retarded counterclockwise degrees from my retarded protractor to clockwise radians
+  float retardedAngle(float theta) {
+    return radians(360-theta);
   }
 
   void cleanup() {
