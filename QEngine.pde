@@ -4,6 +4,8 @@
  * @author Eliot Lash
  * @copyright Copyright (c) 2010-2012 Eliot Lash
  */
+ 
+//import processing.opengl.*;
 
 
 /**
@@ -65,7 +67,7 @@ float ringThickness = 63;
 
 void setup() {
   /** Set your size here */
-  size(1024, 768);
+  size(1024, 768, OPENGL);
   //smooth();
 
   states = new QStack();
