@@ -34,8 +34,17 @@ class ExampleState extends QGameState {
 
     arcs = new ArrayList<Arc>(); 
 
+    int ring;
+
+    //Ring 0
+    ring = 0;
+    addArc(retardedAngle(16), retardedAngle(342), ring);
+    addArc(retardedAngle(287), retardedAngle(253), ring);
+    addArc(retardedAngle(196), retardedAngle(162), ring);
+    addArc(retardedAngle(106), retardedAngle(72), ring);
+
     //Ring 1
-    int ring = 1;
+    ring = 1;
     addArc(retardedAngle(170), retardedAngle(196), ring);
 
     //Ring 2
@@ -104,8 +113,8 @@ class ExampleState extends QGameState {
   }
 
   void addArc(float startAngle, float stopAngle, int valence) {
-    //UGH I need some sleep fuck this shit
-    addArc(startAngle, stopAngle, (worldCoreSize + (ringDistance * valence) + (ringThickness * valence)) - ringThickness, (worldCoreSize + (ringDistance * valence) + (ringThickness * (valence + 1))) - ringThickness);
+    float minRadius = worldCoreSize + (ringDistance * valence) + (ringThickness * valence);
+    addArc(startAngle, stopAngle, minRadius, minRadius + ringThickness);
   }
 
   void addArc(float startAngle, float stopAngle, float minRadius, float maxRadius) {

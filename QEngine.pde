@@ -59,7 +59,7 @@ ArrayList<Arc> arcs;
 PolarCoord pForward;
 float fortyFiveRadians;
 
-float worldCoreSize = 307;
+float worldCoreSize = 244;
 float ringDistance = 245; //Distance between main rings
 float ringThickness = 63;
 
@@ -69,6 +69,7 @@ float ringThickness = 63;
 void setup() {
   /** Set your size here */
   size(1024, 768, OPENGL);
+  //size(1280, 1024, OPENGL);
   //smooth();
 
   pgl = (PGraphicsOpenGL)g;
