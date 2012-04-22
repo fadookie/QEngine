@@ -14,6 +14,7 @@ class ExampleState extends QGameState {
     }
 
     player = players[0];
+    player.position.r = 308;
 
     {
       QInput input = player.input;
@@ -33,35 +34,18 @@ class ExampleState extends QGameState {
     arcs = new ArrayList<Arc>(); 
     {
       Arc arc = new Arc();
-      arc.startAngle = radians(0);
+      arc.startAngle = radians(254);
+      arc.stopAngle = radians(211);
+      arc.minRadius = 554;
+      arc.maxRadius = 617;
+      arcs.add(arc);
+    }
+    {
+      Arc arc = new Arc();
+      arc.startAngle = radians(270);
       arc.stopAngle = radians(45);
-      arc.minRadius = 100;
-      arc.maxRadius = 200;
-      arcs.add(arc);
-    }
-    {
-      Arc arc = new Arc();
-      arc.startAngle = radians(92);
-      arc.stopAngle = radians(355);
-      arc.minRadius = 200;
-      arc.maxRadius = 220;
-      arcs.add(arc);
-    }
-    {
-      Arc arc = new Arc();
-      arc.startAngle = radians(90);
-      arc.stopAngle = radians(180);
-      arc.minRadius = 200;
-      arc.maxRadius = 400;
-      arc.sprite.setImage("temparc.png");
-      arcs.add(arc);
-    }
-    {
-      Arc arc = new Arc();
-      arc.startAngle = radians(90);
-      arc.stopAngle = radians(180);
-      arc.minRadius = 1;
-      arc.maxRadius = 100;
+      arc.minRadius = 554;
+      arc.maxRadius = 617;
       arcs.add(arc);
     }
 
@@ -112,10 +96,18 @@ class ExampleState extends QGameState {
     background(66);
     background.draw(playerPos);
 
+    for (PlayerController player : players) {
+      if (DEBUG) {
+        player.debugDraw();
+      }
+    }
+
+    foreground.draw(playerPos);
+
     //Draw world core for debugging
     if (DEBUG) {
       pushStyle();
-      fill(99);
+      noFill();
       ellipseMode(RADIUS);
       ellipse(zero.x, zero.y, worldCoreSize, worldCoreSize);
       popStyle();
@@ -128,14 +120,6 @@ class ExampleState extends QGameState {
         //arc.collidesWithDebug(player.oldPosition, player.position);
       }
     }
-
-    for (PlayerController player : players) {
-      if (DEBUG) {
-        player.debugDraw();
-      }
-    }
-
-    foreground.draw(playerPos);
 
     popMatrix();
   }

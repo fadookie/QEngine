@@ -56,7 +56,7 @@ ArrayList<Arc> arcs;
 PolarCoord pForward;
 float fortyFiveRadians;
 
-float worldCoreSize = 50;
+float worldCoreSize = 307;
 
 
 //What follows are engine functions. I reccommend defining logic specific to your game inside of a series of QGameState-derived classes.

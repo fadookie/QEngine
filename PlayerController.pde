@@ -10,7 +10,7 @@ class PlayerController extends GameObjectController {
   QInput input;
   PolarCoord oldPosition;
   PolarCoord targetVelocity;
-  float radialMoveAmount = 15;
+  float radialMoveAmount = 30;
   float angluarMoveAmountDegrees = 25;
   float angularMoveAmount; //Angular move amount in radians
   float gravity = -1;
