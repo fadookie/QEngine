@@ -33,6 +33,34 @@ class Arc {
               maxRadius < point.r );
   }
 
+  //Collision test with line segment -- FIXME fake hack sweep shit
+  boolean collidesWith(PolarCoord startPoint, PolarCoord endPoint) {
+    PolarCoord lerpPoint = new PolarCoord();
+    for (float lerpAmount = 0.25; lerpAmount < 1; lerpAmount += 0.25) {
+      lerpPoint.r = lerp(startPoint.r, endPoint.r, lerpAmount);
+      lerpPoint.t = lerp(startPoint.t, endPoint.t, lerpAmount);
+      if (collidesWith(lerpPoint)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  boolean collidesWithDebug(PolarCoord startPoint, PolarCoord endPoint) {
+    PolarCoord lerpPoint = new PolarCoord();
+    for (float lerpAmount = 0.25; lerpAmount < 1; lerpAmount += 0.25) {
+      lerpPoint.r = lerp(startPoint.r, endPoint.r, lerpAmount);
+      lerpPoint.t = lerp(startPoint.t, endPoint.t, lerpAmount);
+      PVector p = lerpPoint.getCartesianCoords();
+      ellipseMode(RADIUS);
+      ellipse(p.x, p.y, 10, 10);
+      if (collidesWith(lerpPoint)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   //Call this after resetting position to a non-colliding one
   CollisionInfo collisionInfo(PolarCoord point) {
     CollisionInfo info = new CollisionInfo();

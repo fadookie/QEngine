@@ -13,7 +13,7 @@ class PlayerController extends GameObjectController {
   float radialMoveAmount = 15;
   float angluarMoveAmountDegrees = 25;
   float angularMoveAmount; //Angular move amount in radians
-  float gravity = -1;
+  float gravity = -0.01;//-1;
   float curSmooth = 0.2;
   float horizontalMomentum = 0;
 
@@ -22,7 +22,7 @@ class PlayerController extends GameObjectController {
   float jumpDurationMs = 100;
   float lastJumpMs = 0;
   int numJumps = 0;
-  int maxJumps = 100;
+  int maxJumps = Integer.MAX_VALUE;
 
   boolean upKeyReleased = false;
 
@@ -84,14 +84,15 @@ class PlayerController extends GameObjectController {
     //Apply gravity
     accel.r = gravity;
 
-    //Modify horizontal momentum
-    //curSmooth *= horizontalTraction;
-    //accel.t = lerp(accel.t, pForward.t, curSmooth);
+    //Interpolate horizontal velocity towards target to give a feeling of momentum
     velocity.t = lerp(velocity.t, targetVelocity.t, curSmooth);
 
     //Update velocity
     velocity.r += accel.r;
     velocity.t += accel.t;
+
+    //velocity.r *= deltaTime;
+    //velocity.t *= deltaTime;
 
     //Update position
     position.r += velocity.r;
@@ -109,13 +110,25 @@ class PlayerController extends GameObjectController {
 
     //Check collisions, etc.
     super.update();
+    //collidesWith.clear();
+
+    //for (Arc arc : arcs) {
+    //  if (arc.collidesWith(oldPosition, position)) {
+    //    arc._color = color(255, 0, 0);
+    //    collidesWith.add(arc);
+    //  } else {
+    //    arc._color = color(255, 255, 255);
+    //  }
+    //}
 
     for (Arc arc : collidesWith) {
+      //print(deltaTime + "] collides with arc " + arc);
       CollisionInfo info = arc.collisionInfo(oldPosition);
       if (info.type == info.ABOVE_TYPE ||
           info.type == info.BELOW_TYPE) {
         velocity.r = pForward.r;
         position.r = oldPosition.r;
+        //print(", vertical collison\n");
 
         if (info.type == info.ABOVE_TYPE) {
           setOnGround(true);
@@ -123,6 +136,14 @@ class PlayerController extends GameObjectController {
       } else if (info.type == info.COUNTERCLOCKWISE_TYPE ||
                  info.type == info.CLOCKWISE_TYPE) {
         velocity.t = pForward.t;
+        position.t = oldPosition.t;
+        //println("horizontal collision");
+      } else {
+        //This is an unknown collision type, let's stop movment to be safe so we don't fall through the floor or some shit.
+        println("Collision type : " + info.type);
+        velocity.r = pForward.r;
+        velocity.t = pForward.t;
+        position.r = oldPosition.r;
         position.t = oldPosition.t;
       }
     }

@@ -15,6 +15,7 @@ static final boolean DEBUG = true;
 /** This property holds how much time elapsed since QGameState.update() was last called, in milliseconds.
  * Please don't modify this from your code. */
 float deltaTime = -1.0;
+float lastUpdateTimeMs = 0;
 
 /** Stack to hold the game states in use.
  * Please don't access this directly, use the engine state functions. */
@@ -77,7 +78,7 @@ void setup() {
   gWorkVectorB = new PVector();
   gWorkVectorC = new PVector();
 
-  //helvetica48 = loadFont("Helvetica-48.vlw");
+  helvetica48 = loadFont("Helvetica-48.vlw");
   pForward = new PolarCoord();
   fortyFiveRadians = radians(45);
 
@@ -138,7 +139,10 @@ PApplet getMainInstance() {
  * 
  */
 void draw() {
+  deltaTime = millis() - lastUpdateTimeMs;
   engineGetState().update();
+  lastUpdateTimeMs = millis();
+
   engineGetState().draw();
 }
 

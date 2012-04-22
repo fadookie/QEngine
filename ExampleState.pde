@@ -3,6 +3,8 @@ class ExampleState extends QGameState {
   int numPlayers = 1;
   PlayerController[] players;
   PlayerController player;
+  Tileset background;
+  Tileset foreground;
 
   void setup() {
     players = new PlayerController[numPlayers];
@@ -39,7 +41,7 @@ class ExampleState extends QGameState {
     }
     {
       Arc arc = new Arc();
-      arc.startAngle = radians(180);
+      arc.startAngle = radians(92);
       arc.stopAngle = radians(355);
       arc.minRadius = 200;
       arc.maxRadius = 220;
@@ -62,6 +64,12 @@ class ExampleState extends QGameState {
       arc.maxRadius = 100;
       arcs.add(arc);
     }
+
+    foreground = new Tileset(6, 6);
+    foreground.loadImagesFromPrefix("planetoid-fg/planetoid-fg_");
+
+    background = new Tileset(6, 6);
+    background.loadImagesFromPrefix("planetoid-bg/planetoid-bg_");
   }
 
   void cleanup() {
@@ -92,10 +100,11 @@ class ExampleState extends QGameState {
     pushMatrix();
     PVector playerPos = player.position.getCartesianCoords();
     rotate(radians(-90));
+    scale(0.1);
     translate(-playerPos.x, -playerPos.y);
 
     background(66);
-
+    background.draw(playerPos);
 
     //Draw world core for debugging
     if (DEBUG) {
@@ -110,6 +119,7 @@ class ExampleState extends QGameState {
       arc.draw();
       if (DEBUG) {
         arc.debugDraw();
+        //arc.collidesWithDebug(player.oldPosition, player.position);
       }
     }
 
@@ -118,6 +128,9 @@ class ExampleState extends QGameState {
         player.debugDraw();
       }
     }
+
+    foreground.draw(playerPos);
+
     popMatrix();
     popMatrix();
   }
