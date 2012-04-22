@@ -34,14 +34,23 @@ class ExampleState extends QGameState {
     arcs = new ArrayList<Arc>(); 
 
     //Ring 1
-    //addArc(retardedAngle(211), retardedAngle(254), 554, 617);
-    addArc(retardedAngle(211), retardedAngle(254), 1);
+    int ring = 1;
+    addArc(retardedAngle(170), retardedAngle(196), ring);
 
     //Ring 2
-    addArc(0, retardedAngle(344), 554, 900); //Wall
-    addArc(retardedAngle(6), retardedAngle(344), 2);
-    addArc(retardedAngle(332), retardedAngle(77), 2);
-    addArc(retardedAngle(57), retardedAngle(18), 2);
+    ring = 2;
+    addArc(retardedAngle(327), retardedAngle(80), ring);
+    addArc(retardedAngle(5), retardedAngle(343), ring);
+    //Walls
+    addArc(0, retardedAngle(344), 554, 900);
+    
+    //Etc...
+    ring = 3;
+    addArc(retardedAngle(228), retardedAngle(123.5), ring);
+    addArc(retardedAngle(77), retardedAngle(39), ring);
+    addArc(retardedAngle(23), retardedAngle(245), ring);
+    //addArc(retardedAngle(N), retardedAngle(N), ring);
+
 
     foreground = new Tileset(6, 6);
     //foreground.pos.x = 0;

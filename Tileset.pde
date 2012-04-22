@@ -28,7 +28,6 @@ class Tileset {
 
   void draw(PVector _centerPosition) {
     PVector centerPosition = PVector.sub(_centerPosition, pos);
-    println(centerPosition);
     imageMode(CORNER);
     pushMatrix();
     translate(pos.x, pos.y);
