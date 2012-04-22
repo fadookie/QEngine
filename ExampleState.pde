@@ -66,9 +66,15 @@ class ExampleState extends QGameState {
     }
 
     foreground = new Tileset(6, 6);
+    //foreground.pos.x = 0;
+    //foreground.pos.y = 0;
+    foreground.pos.x = -3072; //(1024 tile size * 6 tiles) / 2
+    foreground.pos.y = -3072;
     foreground.loadImagesFromPrefix("planetoid-fg/planetoid-fg_");
 
     background = new Tileset(6, 6);
+    background.pos.x = -3072; //(1024 tile size * 6 tiles) / 2
+    background.pos.y = -3072;
     background.loadImagesFromPrefix("planetoid-bg/planetoid-bg_");
   }
 
@@ -93,14 +99,14 @@ class ExampleState extends QGameState {
   }
 
   void draw() {
+    PVector playerPos = player.position.getCartesianCoords();
+
     pushMatrix();
     //Game camera
     translate(centerOfScreen.x, centerOfScreen.y);
     rotate(-player.position.t);
-    pushMatrix();
-    PVector playerPos = player.position.getCartesianCoords();
     rotate(radians(-90));
-    scale(0.1);
+    //scale(0.1);
     translate(-playerPos.x, -playerPos.y);
 
     background(66);
@@ -131,7 +137,6 @@ class ExampleState extends QGameState {
 
     foreground.draw(playerPos);
 
-    popMatrix();
     popMatrix();
   }
 

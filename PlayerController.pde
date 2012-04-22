@@ -13,7 +13,7 @@ class PlayerController extends GameObjectController {
   float radialMoveAmount = 15;
   float angluarMoveAmountDegrees = 25;
   float angularMoveAmount; //Angular move amount in radians
-  float gravity = -0.01;//-1;
+  float gravity = -1;
   float curSmooth = 0.2;
   float horizontalMomentum = 0;
 

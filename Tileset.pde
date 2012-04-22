@@ -9,7 +9,7 @@ class Tileset {
     rows = _rows;
     columns = _columns;
     tiles = new PImage[rows][columns];
-    pos = centerOfScreen;
+    pos = new PVector();
   }
 
   void loadImagesFromPrefix(String _prefix) {
@@ -26,7 +26,7 @@ class Tileset {
             continue;
         }
         String filename = prefix + (i+1) + "_" + (j+1) + ".png";
-        tileRow[j] = loadImage(filename);
+        tileRow[j] = requestImage(filename);
 
         if (DEBUG) {
           println("loadImage("+filename+")");
@@ -36,18 +36,17 @@ class Tileset {
   }
 
   void draw(PVector _centerPosition) {
-    PVector centerPosition = PVector.add(pos, _centerPosition);
-    
+    PVector centerPosition = PVector.sub(_centerPosition, pos);
+    println(centerPosition);
     imageMode(CORNER);
     pushMatrix();
     translate(pos.x, pos.y);
-    ellipseMode(RADIUS);
-    ellipse(_centerPosition.x, _centerPosition.y, 100, 100);
     for (int i = 0; i < tiles.length; i++) {
       PImage[] tileRow = tiles[i];
       for (int j = 0; j < tileRow.length; j++) {
         PImage tile = tileRow[j];
-        if (tile instanceof PImage) {
+        if ((tile instanceof PImage) && (tile.width > 0)) {
+          //Only draw this tile if it's the tile that the player is occupying, or one bordering it
           float myMinX = (j * tile.width) - (tile.width / 2);
           float myMaxX = myMinX + (tile.width * 3);
           float myMinY = (i * tile.height) - (tile.height / 2);
