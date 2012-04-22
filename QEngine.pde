@@ -57,6 +57,8 @@ PolarCoord pForward;
 float fortyFiveRadians;
 
 float worldCoreSize = 307;
+float ringDistance = 245; //Distance between main rings
+float ringThickness = 63;
 
 
 //What follows are engine functions. I reccommend defining logic specific to your game inside of a series of QGameState-derived classes.

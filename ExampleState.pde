@@ -32,23 +32,16 @@ class ExampleState extends QGameState {
     }
 
     arcs = new ArrayList<Arc>(); 
-    {
-      Arc arc = new Arc();
-      arc.startAngle = retardedAngle(211);
-      arc.stopAngle = TWO_PI;
-      arc.minRadius = 554;
-      arc.maxRadius = 617;
-      arcs.add(arc);
-    }
 
-    {
-      Arc arc = new Arc();
-      arc.startAngle = 0;
-      arc.stopAngle = retardedAngle(254);
-      arc.minRadius = 554;
-      arc.maxRadius = 617;
-      arcs.add(arc);
-    }
+    //Ring 1
+    //addArc(retardedAngle(211), retardedAngle(254), 554, 617);
+    addArc(retardedAngle(211), retardedAngle(254), 1);
+
+    //Ring 2
+    addArc(0, retardedAngle(344), 554, 900); //Wall
+    addArc(retardedAngle(6), retardedAngle(344), 2);
+    addArc(retardedAngle(332), retardedAngle(77), 2);
+    addArc(retardedAngle(57), retardedAngle(18), 2);
 
     foreground = new Tileset(6, 6);
     //foreground.pos.x = 0;
@@ -66,6 +59,40 @@ class ExampleState extends QGameState {
   //Convert retarded counterclockwise degrees from my retarded protractor to clockwise radians
   float retardedAngle(float theta) {
     return radians(360-theta);
+  }
+
+  void addArc(float startAngle, float stopAngle, int valence) {
+    //UGH I need some sleep fuck this shit
+    addArc(startAngle, stopAngle, (worldCoreSize + (ringDistance * valence) + (ringThickness * valence)) - ringThickness, (worldCoreSize + (ringDistance * valence) + (ringThickness * (valence + 1))) - ringThickness);
+  }
+
+  void addArc(float startAngle, float stopAngle, float minRadius, float maxRadius) {
+    if (stopAngle < startAngle) {
+      //This angle crosses the axis, split into two arcs
+      Arc arc1 = new Arc();
+      Arc arc2 = new Arc();
+      arc1.startAngle = startAngle;
+      arc1.stopAngle = TWO_PI;
+
+      arc2.startAngle = 0;
+      arc2.stopAngle = stopAngle;
+
+      arc1.minRadius = minRadius;
+      arc2.minRadius = minRadius;
+
+      arc1.maxRadius = maxRadius;
+      arc2.maxRadius = maxRadius;
+      
+      arcs.add(arc1);
+      arcs.add(arc2);
+    } else {
+      Arc arc = new Arc();
+      arc.startAngle = startAngle;
+      arc.stopAngle = stopAngle;
+      arc.minRadius = minRadius;
+      arc.maxRadius = maxRadius;
+      arcs.add(arc);
+    }
   }
 
   void cleanup() {
@@ -100,7 +127,7 @@ class ExampleState extends QGameState {
     translate(-playerPos.x, -playerPos.y);
 
     background(66);
-    background.draw(playerPos);
+    //background.draw(playerPos);
 
     for (PlayerController player : players) {
       if (DEBUG) {
