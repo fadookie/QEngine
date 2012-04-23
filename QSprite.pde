@@ -13,7 +13,8 @@ class QSprite {
   static final int ANIM = 4;
 
   int type;
-  PVector position;
+  PolarCoord parentPosition;
+  PolarCoord position;
   PVector size;
   color fillColor;
   PImage image;
@@ -34,7 +35,7 @@ class QSprite {
   void construct(int _type) {
     type = _type;
 
-    position = new PVector();
+    position = new PolarCoord();
     size = new PVector(1,1);
     fillColor = color(120, 30, 90);
   }
@@ -58,7 +59,13 @@ class QSprite {
     pushMatrix();
     pushStyle();
     updateSize();
-    translate(position.x, position.y);
+    position.r = parentPosition.r + size.x;
+    position.t = parentPosition.t ;
+    float adjustFactor = radians(60) * QMath.getConstantRadialDistanceCoefficient(position.r,radians(60));
+    position.t -= adjustFactor;
+    println("adjustFactor : " + adjustFactor);
+    PVector cartesianPosition = position.getCartesianCoords();
+    translate(cartesianPosition.x, cartesianPosition.y);
     rotate(rotation);
     fill(fillColor);
 

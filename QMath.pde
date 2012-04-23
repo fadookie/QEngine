@@ -43,5 +43,13 @@ static class QMath {
   {
       return mod(fAng, TWO_PI);
   }
-  
+  static float getConstantRadialDistanceCoefficient(float radius, float theta) {
+      if (theta == pForward.t) {
+        return 1;
+      }
+      float arcLength = radius * radians(1);
+      float constantDistanceCoefficient = abs(theta) / arcLength;
+      //println("arcLength =" +arcLength+ ", theta = "+theta+",f = " + constantVelocityCoefficient);
+      return constantDistanceCoefficient;
+  }
 }

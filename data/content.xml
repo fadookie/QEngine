@@ -49,6 +49,23 @@
         <PImage fileName="Animations/Player/Idle/Hero-Idle0022.png"/>
         <PImage fileName="Animations/Player/Idle/Hero-Idle0023.png"/>
     </AnimationFrameset>
+	<AnimationFrameset tag="Player-jump">
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0001.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0002.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0003.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0004.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0005.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0006.png"/>
+    </AnimationFrameset>
+	<AnimationFrameset tag="Player-freefall">
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0007.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0008.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0009.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0010.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0011.png"/>
+        <PImage fileName="Animations/Player/Jump-Land/Hero-Jump0012.png"/>
+    </AnimationFrameset>
+    <!--
 	<AnimationFrameset tag="Player-jumpUp">
         <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0001.png"/>
         <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0002.png"/>
@@ -63,4 +80,5 @@
         <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0011.png"/>
         <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0012.png"/>
     </AnimationFrameset>
+    -->
 </Content>

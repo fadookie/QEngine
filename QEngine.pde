@@ -63,7 +63,7 @@ PFont helvetica48; //A default font
 
 ArrayList<Arc> arcs;
 ArrayList<Bullet> bullets;
-PolarCoord pForward;
+static PolarCoord pForward;
 float fortyFiveRadians;
 
 float worldCoreSize = 244;

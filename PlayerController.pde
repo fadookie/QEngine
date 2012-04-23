@@ -10,7 +10,7 @@ class PlayerController extends GameObjectController {
   QInput input;
   PolarCoord oldPosition;
   PolarCoord targetVelocity;
-  float radialMoveAmount = 30;
+  float radialMoveAmount = 23;
   float angluarMoveAmountDegrees = 25;
   float angularMoveAmount; //Angular move amount in radians
   float gravity = -1;
@@ -21,7 +21,7 @@ class PlayerController extends GameObjectController {
   float jumpDurationMs = 100;
   float lastJumpMs = 0;
   int numJumps = 0;
-  int maxJumps = Integer.MAX_VALUE;
+  int maxJumps = 2;
 
   float bulletVelocityDegrees = 35;
   float bulletVelocity; //Angular move amount in radians
@@ -148,20 +148,26 @@ class PlayerController extends GameObjectController {
     }
 
     //Set sprite facing
-    if (targetVelocity.t > 0) {
-      sprite.setState(onGround ? configManager.moveRightAnimation : configManager.jumpUpRightAnimation);
-      sprite.play();
-    } else if (targetVelocity.t < 0) {
-      sprite.setState(onGround ? configManager.moveLeftAnimation : configManager.jumpUpLeftAnimation);
-      sprite.play();
+    if (onGround) {
+      if (targetVelocity.t > 0) {
+        sprite.setState(configManager.moveRightAnimation);
+      } else if (targetVelocity.t < 0) {
+        sprite.setState(configManager.moveLeftAnimation);
+      } else {
+        if (input.heading.x >= 0) {
+          sprite.setState(configManager.idleLeftAnimation);
+        } else {
+          sprite.setState(configManager.idleRightAnimation);
+        }
+      }
     } else {
       if (input.heading.x >= 0) {
-        sprite.setState(onGround ? configManager.idleLeftAnimation : configManager.jumpUpLeftAnimation);
+        sprite.setState((velocity.r >= 0) ? configManager.jumpLeftAnimation : configManager.freefallLeftAnimation);
       } else {
-        sprite.setState(onGround ? configManager.idleRightAnimation : configManager.jumpUpRightAnimation);
+        sprite.setState((velocity.r >= 0) ? configManager.jumpRightAnimation : configManager.freefallRightAnimation);
       }
-      sprite.play();
     }
+    sprite.play();
   }
 
   void shoot() {

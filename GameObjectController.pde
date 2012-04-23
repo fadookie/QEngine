@@ -45,6 +45,7 @@ class GameObjectController {
     collidesWith = new ArrayList<Arc>();
 
     sprite = new QSprite();
+    sprite.parentPosition = position;
 
     workVectorA = new PVector();
     workVectorB = new PVector();
@@ -54,11 +55,6 @@ class GameObjectController {
   void setPosition(float r, float t) {
     position.r = r;
     position.t = t;
-  }
-
-  //TODO: clean up this cartesian shit
-  PVector getPosition() {
-    return sprite.position.get();
   }
 
   PVector getHeading() {
@@ -114,23 +110,13 @@ class GameObjectController {
   }
   
   float getConstantVelocityCoefficient(float _targetVelocity) {
-      if (_targetVelocity == pForward.t) {
-        return 1;
-      }
-      float arcLength = position.r * radians(1);
-      float constantVelocityCoefficient = abs(_targetVelocity) / arcLength;
-      //println("arcLength =" +arcLength+ ", _targetVelocity = "+_targetVelocity+",f = " + constantVelocityCoefficient);
-      return constantVelocityCoefficient;
+      return QMath.getConstantRadialDistanceCoefficient(position.r, _targetVelocity);
   }
 
   void draw() {
-    pushMatrix();
-    //translate(center.x, center.y);
     sprite.updateSize();
-    sprite.position = position.getCartesianCoords();
     sprite.rotation = position.t + radians(90);
     sprite.draw();
-    popMatrix();
   }
 
   void debugDraw() {

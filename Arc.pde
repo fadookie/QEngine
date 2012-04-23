@@ -97,7 +97,7 @@ class Arc {
   void draw() {
     center.r = minRadius + ((maxRadius - minRadius) / 2); //Had to fudge this positioning, not sure why
     center.t = startAngle + ((stopAngle - startAngle) / 2);
-    sprite.position = center.getCartesianCoords();
+    sprite.position = center;
     sprite.rotation = center.t;
     if (sprite.type > QSprite.INVALID) {
       sprite.draw();
@@ -133,8 +133,8 @@ class Arc {
     line(stopMinC.x, stopMinC.y, stopMaxC.x, stopMaxC.y);
 
     //Draw center
-    ellipseMode(RADIUS);
-    ellipse(sprite.position.x, sprite.position.y, 10, 10);
+    //ellipseMode(RADIUS);
+    //ellipse(sprite.position.x, sprite.position.y, 10, 10);
 
     popMatrix();
     popStyle();

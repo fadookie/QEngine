@@ -9,12 +9,16 @@ class ConfigManager {
   final int idleRightAnimation        = 1;
   final int moveLeftAnimation         = 2;
   final int moveRightAnimation        = 3;
-  final int jumpUpLeftAnimation       = 4;
-  final int jumpUpRightAnimation      = 5;
-  final int jumpDownLeftAnimation     = 6;
-  final int jumpDownRightAnimation    = 7;
-  final int crouchLeftAnimation       = 8;
-  final int crouchRightAnimation      = 9;
+  final int jumpLeftAnimation         = 4;
+  final int jumpRightAnimation        = 5;
+  final int freefallLeftAnimation     = 6;
+  final int freefallRightAnimation    = 7;
+  final int jumpAimUpLeftAnimation    = 8;
+  final int jumpAimUpRightAnimation   = 9;
+  final int jumpAimDownLeftAnimation  = 10;
+  final int jumpAimDownRightAnimation = 11;
+  final int crouchLeftAnimation       = 12;
+  final int crouchRightAnimation      = 13;
 
   //The various types that a power-up can be 
   final String missilePowerup         = "Missile";
