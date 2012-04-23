@@ -12,14 +12,21 @@ class Tileset {
     pos = new PVector();
   }
 
+  void setPrefix(String _prefix) {
+    prefix = _prefix;
+  }
+
+  //Force a blocking pre-load
   void loadImagesFromPrefix(String _prefix) {
     prefix = _prefix;
 
-    //for (int i = 0; i < tiles.length; i++) {
-    //  PImage[] tileRow = tiles[i];
-    //  for (int j = 0; j < tileRow.length; j++) {
-    //  }
-    //}
+    for (int i = 0; i < tiles.length; i++) {
+      PImage[] tileRow = tiles[i];
+      for (int j = 0; j < tileRow.length; j++) {
+        String filename = getFilenameForTile(i, j);
+        tileRow[j] = loadImage(filename);
+      }
+    }
   }
 
   String getFilenameForTile(int i, int j) {

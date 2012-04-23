@@ -50,20 +50,32 @@ class ExampleState extends QGameState {
     ring = 1;
     addArc(retardedAngle(170), retardedAngle(196), ring);
 
-    //Ring 2
-    ring = 2;
-    addArc(retardedAngle(327), retardedAngle(80), ring);
-    addArc(retardedAngle(5), retardedAngle(343), ring);
     //Walls
     //addArc(0, retardedAngle(344), 554, 900); //Old way to define a wall
     addArc(0, retardedAngle(344), 1, 2);
     addArc(retardedAngle(143), retardedAngle(125), 1, 2);
-    
+
+    //Ring 2
+    ring = 2;
+    addArc(retardedAngle(327), retardedAngle(80), ring);
+    addArc(retardedAngle(5), retardedAngle(343), ring);
+
+    addArc(retardedAngle(331), retardedAngle(325), 2, 3);
+    addArc(retardedAngle(162), retardedAngle(156), 2, 3);
+    addArc(retardedAngle(113), retardedAngle(104), 2, 4);
+    addArc(retardedAngle(29), retardedAngle(18), 2, 4);
+
     //Etc...
     ring = 3;
     addArc(retardedAngle(228), retardedAngle(123.5), ring);
     addArc(retardedAngle(77), retardedAngle(39), ring);
     addArc(retardedAngle(23), retardedAngle(245), ring);
+
+    addArc(retardedAngle(314), retardedAngle(299), 3, 5);
+    addArc(retardedAngle(272), retardedAngle(264), 3, 4);
+    addArc(retardedAngle(195), retardedAngle(184), 3, 4);
+    addArc(retardedAngle(187), retardedAngle(180), 3, 5);
+    addArc(retardedAngle(71), retardedAngle(61), 3, 4);
     
     ring = 4;
     addArc(retardedAngle(346), retardedAngle(334), ring);
@@ -72,10 +84,20 @@ class ExampleState extends QGameState {
     addArc(retardedAngle(124), retardedAngle(100), ring);
     addArc(retardedAngle(92), retardedAngle(358), ring);
 
+    addArc(retardedAngle(344), retardedAngle(337), 4, 5);
+    addArc(retardedAngle(127), retardedAngle(121), 4, 6);
+
     ring = 5;
     addArc(retardedAngle(287), retardedAngle(206), ring);
     addArc(retardedAngle(195), retardedAngle(135), ring);
     addArc(retardedAngle(124), retardedAngle(325), ring);
+
+    addArc(retardedAngle(349), retardedAngle(337), 5, 6);
+    addArc(retardedAngle(292), retardedAngle(285), 5, 6);
+    addArc(retardedAngle(287), retardedAngle(282), 5, 7);
+    addArc(retardedAngle(248), retardedAngle(240), 5, 6);
+    addArc(retardedAngle(244), retardedAngle(237), 5, 7);
+    addArc(retardedAngle(171), retardedAngle(163), 5, 7);
 
     ring = 6;
     addArc(retardedAngle(357), retardedAngle(285), ring);
@@ -85,11 +107,19 @@ class ExampleState extends QGameState {
     addArc(retardedAngle(85), retardedAngle(47), ring);
     addArc(retardedAngle(41), retardedAngle(10), ring);
 
+    addArc(retardedAngle(53), retardedAngle(48), 6, 7);
+    addArc(retardedAngle(13), retardedAngle(6), 6, 7);
+
     ring = 7;
     addArc(retardedAngle(327), retardedAngle(258), ring);
     addArc(retardedAngle(251), retardedAngle(215), ring);
     addArc(retardedAngle(183), retardedAngle(132), ring);
     addArc(retardedAngle(125), retardedAngle(6), ring);
+
+    addArc(retardedAngle(334), retardedAngle(320), 7, 8);
+    addArc(retardedAngle(243), retardedAngle(239), 7, 8);
+    addArc(retardedAngle(153), retardedAngle(145), 7, 8);
+    addArc(retardedAngle(71), retardedAngle(37), 7, 8);
 
     ring = 8;
     addArc(retardedAngle(346), retardedAngle(303), ring);
@@ -191,9 +221,10 @@ class ExampleState extends QGameState {
   void draw() {
     PVector playerPos = player.position.getCartesianCoords();
 
-    //background(0);
+    background(0);
 
     //Draw starfield
+    /*
     if (starfield.width > 0) {
       float playerPositionRatio = player.position.t / TWO_PI;
       playerPositionRatio -= 1;//Invert it
@@ -211,6 +242,7 @@ class ExampleState extends QGameState {
       image(starfield, playerPositionRatio * width, 0);
       image(starfield, (playerPositionRatio * width) + width, 0);
     }
+    */
 
 
     pushMatrix();
@@ -221,7 +253,7 @@ class ExampleState extends QGameState {
     //scale(0.1);
     translate(-playerPos.x, -playerPos.y);
 
-    background.draw(playerPos);
+    //background.draw(playerPos);
 
     for (PlayerController player : players) {
       if (DEBUG) {
