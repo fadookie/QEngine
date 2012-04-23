@@ -156,8 +156,6 @@ class PlayerController extends GameObjectController {
     bullet.position.r += fireHeight;
     bullet.velocity.t = velocity.t + -(bulletVelocity * input.heading.x);
     bullet.velocity.r = input.heading.y;
-    println(input.heading.x);
-    bullet._color = color(250, 250, 210);
     bullets.add(bullet);
   }
 

@@ -23,6 +23,10 @@ class Tileset {
     for (int i = 0; i < tiles.length; i++) {
       PImage[] tileRow = tiles[i];
       for (int j = 0; j < tileRow.length; j++) {
+        if (skipTile(i, j)) {
+          continue;
+        }
+
         String filename = getFilenameForTile(i, j);
         tileRow[j] = loadImage(filename);
       }
@@ -31,6 +35,14 @@ class Tileset {
 
   String getFilenameForTile(int i, int j) {
         return prefix + (i+1) + "_" + (j+1) + ".png";
+  }
+
+  boolean skipTile(int i, int j) {
+      //Skip upper left, lower left, upper right, & lower right quadrants as they are just blank pngs
+      return (((i == 0) && (j == 0)) ||
+          ((i == 0) && (j == columns - 1)) ||
+          ((i == rows - 1) && (j == 0)) ||
+          ((i == rows - 1) && (j == columns - 1)));
   }
 
   void draw(PVector _centerPosition) {
@@ -43,12 +55,8 @@ class Tileset {
       for (int j = 0; j < tileRow.length; j++) {
         PImage tile = tileRow[j];
 
-        //Skip upper left, lower left, upper right, & lower right quadrants as they are just blank pngs
-        if (((i == 0) && (j == 0)) ||
-            ((i == 0) && (j == columns - 1)) ||
-            ((i == rows - 1) && (j == 0)) ||
-            ((i == rows - 1) && (j == columns - 1))) {
-            continue;
+        if(skipTile(i, j)) {
+          continue;
         }
 
         //Only draw this tile if it's the tile that the player is occupying, or one bordering it

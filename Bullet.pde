@@ -1,7 +1,9 @@
 class Bullet extends GameObjectController {
-  static final int BULLET_TYPE = 1;
-  static final int MISSILE_TYPE = 2;
-  static final int RAYGUN_TYPE = 3;
+  static final int numTypes = 3;
+
+  static final int BULLET_TYPE = 0;
+  static final int MISSILE_TYPE = 1;
+  static final int RAYGUN_TYPE = 2;
 
   boolean friendly;
   int type;
@@ -11,11 +13,20 @@ class Bullet extends GameObjectController {
 
   Bullet() {
     super();
-    type = BULLET_TYPE;
+    construct(BULLET_TYPE);
+  }
+
+  Bullet(int _type) {
+    super();
+    construct(_type);
+  }
+
+  void construct(int _type) {
+    type = _type;
     sprite.type = QSprite.ELLIPSE;
     sprite.size.x = 5;
     sprite.size.y = 5;
-    _color = color(255, 255, 255);
+    _color = bulletColors[type]; //These are defined in QEngine
     spawnTimeMs = millis();
   }
 
@@ -23,6 +34,10 @@ class Bullet extends GameObjectController {
     super.update();
     if ((millis() - spawnTimeMs) > lifeDurationMs) {
       //Kill this bullet on the next update
+      removeFromScene = true;
+    }
+
+    if (!collidesWith.isEmpty()) {
       removeFromScene = true;
     }
   }

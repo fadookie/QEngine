@@ -41,6 +41,8 @@ PVector centerOfScreen;
 /** Default length of time in milliseconds that InterstitialStates will display before advancing to the next state. */
 float interstitialLengthMs = 1000;
 
+HashMap<String, PImage[]> animationFrameRegistry; //Load a PImage[] once and throw it in here to prevent having to load it again
+
 /**
  * Some reusable PVector objects which can be used instead of creating new PVectors inside tight loops to reduce garbage during calculations.
  * Assign to components of these vectors if you want to, but keep in mind there might be old data sitting in one of the unused components unless you set it to zero.
@@ -64,6 +66,7 @@ float worldCoreSize = 244;
 float ringDistance = 245; //Distance between main rings
 float ringThickness = 63;
 
+color[] bulletColors = new color[Bullet.numTypes];
 
 //What follows are engine functions. I reccommend defining logic specific to your game inside of a series of QGameState-derived classes.
 
@@ -90,6 +93,10 @@ void setup() {
   helvetica48 = loadFont("Helvetica-48.vlw");
   pForward = new PolarCoord();
   fortyFiveRadians = radians(45);
+
+  bulletColors[Bullet.BULLET_TYPE] = color(255, 205, 56);
+  bulletColors[Bullet.MISSILE_TYPE] = color(250, 250, 210);
+  bulletColors[Bullet.RAYGUN_TYPE] = color(63, 244, 255);
 
   //Code to add handler for mouse wheel events, commenting out for js compatibility
   /*

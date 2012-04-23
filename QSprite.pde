@@ -17,6 +17,7 @@ class QSprite {
   color fillColor;
   PImage image;
   String imageFileName;
+  Animation animation;
   int imageMode = CORNER;
   float rotation;
 
