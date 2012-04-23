@@ -7,6 +7,8 @@ class PlayState extends QGameState {
   Tileset foreground;
   PImage starfield;
 
+  int screenshotCount = 0;
+
   void setup() {
     //Load content specified in content.xml
     contentManager = new ContentManager();
@@ -151,7 +153,7 @@ class PlayState extends QGameState {
 
     starfield = loadImage("Stars_BG.png");
 
-    music = minim.loadFile("daniel.mp3");
+    music = minim.loadFile("daniel.wav");
     music.loop();
     //music.play();
   }
@@ -320,6 +322,15 @@ class PlayState extends QGameState {
 
     if (CODED == key) {
     } else {
+      if (key == 's') {
+        try {
+          saveFrame(String.format("screenshot%02d.png", screenshotCount));
+          println("screenshot " + screenshotCount);
+          screenshotCount++;
+        } 
+        catch (Exception e) {
+        }
+      }
       //DEBUG keys
       if (DEBUG) {
       } 
