@@ -24,13 +24,13 @@ class ContentManager {
             if (childClassName instanceof String && childClassName.equals("PImage")) { 
               imageNames.add(childElement.getString("fileName"));
             } else {
-              println("[ContentManager.deserialize()] Warning: XML child element " + childClassName + " not recognized.");
+              //println("[ContentManager.deserialize()] Warning: XML child element " + childClassName + " not recognized.");
             }
           }
 
           loadAnimationFrames(tag, imageNames);
       } else {
-        println("[ContentManager.deserialize()] Warning: XML element " + xmlElement + " not recognized.");
+        //println("[ContentManager.deserialize()] Warning: XML element " + xmlElement + " not recognized.");
       }
     }
   }

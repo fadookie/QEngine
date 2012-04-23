@@ -149,16 +149,16 @@ class PlayerController extends GameObjectController {
 
     //Set sprite facing
     if (targetVelocity.t > 0) {
-      sprite.setState(configManager.moveRightAnimation);
+      sprite.setState(onGround ? configManager.moveRightAnimation : configManager.jumpUpRightAnimation);
       sprite.play();
     } else if (targetVelocity.t < 0) {
-      sprite.setState(configManager.moveLeftAnimation);
+      sprite.setState(onGround ? configManager.moveLeftAnimation : configManager.jumpUpLeftAnimation);
       sprite.play();
     } else {
       if (input.heading.x >= 0) {
-        sprite.setState(configManager.idleLeftAnimation);
+        sprite.setState(onGround ? configManager.idleLeftAnimation : configManager.jumpUpLeftAnimation);
       } else {
-        sprite.setState(configManager.idleRightAnimation);
+        sprite.setState(onGround ? configManager.idleRightAnimation : configManager.jumpUpRightAnimation);
       }
       sprite.play();
     }

@@ -4,13 +4,17 @@ class ConfigManager {
   TreeMap<Float, String> powerUpSpawnChances;
 
   //Animation state numbers
-  final int deathAnimation            = -2;
-  final int idleLeftAnimation         = -1;
-  final int idleRightAnimation        = 0;
-  final int jumpAnimation             = 1;
-  final int moveRightAnimation        = 2;
-  final int crouchAnimation           = 3;
-  final int moveLeftAnimation         = 4;
+  final int deathAnimation            = -1;
+  final int idleLeftAnimation         = 0;
+  final int idleRightAnimation        = 1;
+  final int moveLeftAnimation         = 2;
+  final int moveRightAnimation        = 3;
+  final int jumpUpLeftAnimation       = 4;
+  final int jumpUpRightAnimation      = 5;
+  final int jumpDownLeftAnimation     = 6;
+  final int jumpDownRightAnimation    = 7;
+  final int crouchLeftAnimation       = 8;
+  final int crouchRightAnimation      = 9;
 
   //The various types that a power-up can be 
   final String missilePowerup         = "Missile";

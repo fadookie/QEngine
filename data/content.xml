@@ -49,4 +49,18 @@
         <PImage fileName="Animations/Player/Idle/Hero-Idle0022.png"/>
         <PImage fileName="Animations/Player/Idle/Hero-Idle0023.png"/>
     </AnimationFrameset>
+	<AnimationFrameset tag="Player-jumpUp">
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0001.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0002.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0003.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0004.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0005.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0006.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0007.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0008.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0009.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0010.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0011.png"/>
+        <PImage fileName="Animations/Player/Jump-aUp/Hero-JumpUp0012.png"/>
+    </AnimationFrameset>
 </Content>
