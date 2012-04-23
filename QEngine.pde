@@ -66,9 +66,10 @@ ArrayList<Bullet> bullets;
 static PolarCoord pForward;
 float fortyFiveRadians;
 
+//According to Dan, the top of one ring to top of next = 308 px
 float worldCoreSize = 244;
 float ringDistance = 245; //Distance between main rings
-float ringThickness = 63;
+float ringThickness = 62;
 
 color[] bulletColors = new color[Bullet.numTypes];
 
