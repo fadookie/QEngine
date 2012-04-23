@@ -140,6 +140,10 @@ class ExampleState extends QGameState {
     background.loadImagesFromPrefix("planetoid-bg/planetoid-bg_");
 
     starfield = loadImage("Stars_BG.png");
+
+    music = minim.loadFile("daniel.mp3");
+    music.loop();
+    //music.play();
   }
 
   //Convert retarded counterclockwise degrees from my retarded protractor to clockwise radians
@@ -189,6 +193,7 @@ class ExampleState extends QGameState {
   }
 
   void cleanup() {
+    music.close();
   }
 
   void pause() {

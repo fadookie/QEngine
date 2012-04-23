@@ -5,6 +5,11 @@
  * @copyright Copyright (c) 2010-2012 Eliot Lash
  */
 
+import ddf.minim.*;
+Minim minim;
+AudioPlayer music;
+
+//Might need these at some point...
 import processing.opengl.*;
 import javax.media.opengl.GL;
 PGraphicsOpenGL pgl;
@@ -66,7 +71,7 @@ ArrayList<Bullet> bullets;
 static PolarCoord pForward;
 float fortyFiveRadians;
 
-//According to Dan, the top of one ring to top of next = 308 px
+//Top of one ring to top of next = 308 px
 float worldCoreSize = 244;
 float ringDistance = 245; //Distance between main rings
 float ringThickness = 62;
@@ -81,6 +86,7 @@ void setup() {
   //size(1280, 1024, OPENGL);
   //smooth();
 
+  minim = new Minim(this);
   pgl = (PGraphicsOpenGL)g;
 
   states = new QStack();
@@ -246,3 +252,11 @@ void engineResetToState(QGameState state) {
   engineChangeState(state);
 }
 
+void stop() {
+  //Let the states clean up
+  while (engineGetState() != null) {
+    enginePopState();
+  }
+  minim.stop();
+  super.stop();
+}
