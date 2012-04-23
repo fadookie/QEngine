@@ -124,8 +124,13 @@ class GameObjectController {
   }
 
   void draw() {
+    pushMatrix();
+    //translate(center.x, center.y);
+    sprite.updateSize();
     sprite.position = position.getCartesianCoords();
+    sprite.rotation = position.t + radians(90);
     sprite.draw();
+    popMatrix();
   }
 
   void debugDraw() {

@@ -17,12 +17,13 @@
 	        <Target id="2"/>
 	    </ValidTargets>
         <AnimationTemplate defaultState="2">
-          <AnimationState loop="0" size.y="70" size.x="70" framesetTag="Player-die"           frameDurationMs="41.6666667"    id="-1"/>
-          <AnimationState loop="1" size.y="70" size.x="70" framesetTag="Player-idle"        frameDurationMs="41.6666667"    id="0"/>
-          <AnimationState loop="1" size.y="70" size.x="70" framesetTag="Player-jump"        frameDurationMs="41.6666667"    id="1"/>
-          <AnimationState loop="1" size.y="70" size.x="70" framesetTag="Player-run"        frameDurationMs="41.6666667"    id="2"/>
-          <AnimationState loop="1" size.y="70" size.x="70" framesetTag="Player-crouch"        frameDurationMs="41.6666667"    id="3"/>
-          <AnimationState loop="1" size.y="-70" size.x="-70" framesetTag="Player-run" frameDurationMs="41.6666667"    id="4"/>
+          <AnimationState loop="0" size.y="128" size.x="128" framesetTag="Player-die"           frameDurationMs="41.6666667"    id="-2"/>
+          <AnimationState loop="1" flipX="1" size.y="128" size.x="128" framesetTag="Player-idle"        frameDurationMs="41.6666667"    id="-1"/>
+          <AnimationState loop="1" size.y="128" size.x="128" framesetTag="Player-idle"        frameDurationMs="41.6666667"    id="0"/>
+          <AnimationState loop="1" size.y="128" size.x="128" framesetTag="Player-jump"        frameDurationMs="41.6666667"    id="1"/>
+          <AnimationState loop="1" size.y="128" size.x="128" framesetTag="Player-run"        frameDurationMs="41.6666667"    id="2"/>
+          <AnimationState loop="1" size.y="128" size.x="128" framesetTag="Player-crouch"        frameDurationMs="41.6666667"    id="3"/>
+          <AnimationState loop="1" flipX="1" size.y="128" size.x="128" framesetTag="Player-run" frameDurationMs="41.6666667"    id="4"/>
         </AnimationTemplate>
 	</UnitTemplate>
 </Config>

@@ -51,11 +51,13 @@ class QSprite {
     type = ANIM;
     animation = new Animation(animationTemplate);
     println(animation);
+    updateSize();
   }
 
   void draw() {
     pushMatrix();
     pushStyle();
+    updateSize();
     translate(position.x, position.y);
     rotate(rotation);
     fill(fillColor);
@@ -72,7 +74,6 @@ class QSprite {
         image(image, 0, 0, size.x, size.y);
       }
     } else if (ANIM == type) {
-      updateSize();
       animation.draw();
     } else {
       println("The sprite type " + type + " is not valid. Not drawing.");

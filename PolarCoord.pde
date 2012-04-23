@@ -23,6 +23,11 @@ class PolarCoord {
     );
   }
 
+  boolean equals(PolarCoord otherCoord) {
+    return ((r == otherCoord.r) &&
+            (t == otherCoord.t));
+  }
+
   String toString() {
     return "[ "+r+", "+t+" ]";
   }

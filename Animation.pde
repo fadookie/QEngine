@@ -31,7 +31,8 @@ class Animation {
     for (int i = 0; i < numFrames; i++) {
       XML pictureFileElement = xmlElement.getChild(i);
       String className = pictureFileElement.getName();
-      if (className.equals("AnimationState")) { 
+
+      if (className instanceof String && className.equals("AnimationState")) { 
         int stateId = pictureFileElement.getInt("id");
         animationStates.put(stateId, new AnimationState(pictureFileElement));
       } else {
@@ -64,21 +65,40 @@ class Animation {
   }
 
   void draw() {
-    if ( playing && ((millis() - lastFrameChangeMs) > animationStates.get(state).frameDurationMs) ) {
+    AnimationState animationState = animationStates.get(state);
+    if ( playing && ((millis() - lastFrameChangeMs) > animationState.frameDurationMs) ) {
       //Time to show the next frame
       lastFrameChangeMs = millis(); //Reset timer
       if (frame < (images.length - 1)) {
         frame++;
-      } else if ((frame < images.length) &&  animationStates.get(state).loop) {
+      } else if ((frame < images.length) &&  animationState.loop) {
         frame = 0;
-      } else if ((frame < images.length) &&  !animationStates.get(state).loop) {
+      } else if ((frame < images.length) &&  !animationState.loop) {
         //We've finished playing a one-shot animation
         playing = false;
       }
     }
 
     if (images.length > 0) {
-      image(images[frame], 0, 0, animationStates.get(state).size.x, animationStates.get(state).size.y);
+      //Min and max u coordinates for uv texture
+      float uMin = 0;
+      float uMax = 1;
+      if (animationState.flipX) {
+        uMin = 1;
+        uMax = 0;
+      }
+      textureMode(NORMALIZED);
+      pushStyle();
+      noStroke();
+      noFill();
+      beginShape();
+      texture(images[frame]);
+      vertex(0, 0, 0, uMin, 0);
+      vertex(animationState.size.x, 0, 0, uMax, 0);
+      vertex(animationState.size.x, animationState.size.y, 0, uMax, 1);
+      vertex(0, animationState.size.y, 0, uMin, 1);
+      endShape();
+      popStyle();
     }
   }
 
@@ -106,6 +126,9 @@ class Animation {
         tag = animationStates.get(state).framesetTag;
         play();
       }
+      //println(this);
+    } else {
+      //println("[Animation.setState] did not set state to " + _state + ". Current state = " + state);
     }
   }
 
@@ -119,14 +142,16 @@ class AnimationState {
   boolean loop = true;
   String framesetTag;
   float frameDurationMs = 300;
+  boolean flipX = false;
   PVector size;
 
-  AnimationState(int _id, boolean _loop, String _framesetTag, float _frameDurationMs, PVector _size) {
+  AnimationState(int _id, boolean _loop, String _framesetTag, float _frameDurationMs, PVector _size, boolean _flipX) {
     id = _id;
     loop = _loop;
     framesetTag = _framesetTag;
     frameDurationMs = _frameDurationMs;
     size = _size;
+    flipX = _flipX;
   }
 
   AnimationState(XML xmlElement) {
@@ -137,13 +162,14 @@ class AnimationState {
     size = new PVector(0,0);
     size.x = xmlElement.getFloat("size.x");
     size.y = xmlElement.getFloat("size.y");
+    flipX = (0 == xmlElement.getInt("flipX")) ? false : true;
   }
 
   AnimationState deepClone() {
-    return new AnimationState(id, loop, framesetTag, frameDurationMs, size.get());
+    return new AnimationState(id, loop, framesetTag, frameDurationMs, size.get(), flipX);
   }
 
   String toString() {
-    return "AnimationState{" + "id=" + id + ", loop=" + loop + ", framesetTag=" + framesetTag + ", frameDurationMs=" + frameDurationMs + ", size=" + size + '}';
+    return "AnimationState{" + "id=" + id + ", loop=" + loop + ", framesetTag=" + framesetTag + ", frameDurationMs=" + frameDurationMs + ", size=" + size + ", flipX=" + flipX + '}';
   }
 }

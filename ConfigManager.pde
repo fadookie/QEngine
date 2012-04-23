@@ -4,8 +4,9 @@ class ConfigManager {
   TreeMap<Float, String> powerUpSpawnChances;
 
   //Animation state numbers
-  final int deathAnimation            = -1;
-  final int idleAnimation             = 0;
+  final int deathAnimation            = -2;
+  final int idleLeftAnimation         = -1;
+  final int idleRightAnimation        = 0;
   final int jumpAnimation             = 1;
   final int moveRightAnimation        = 2;
   final int crouchAnimation           = 3;

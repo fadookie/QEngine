@@ -148,13 +148,18 @@ class PlayerController extends GameObjectController {
     }
 
     //Set sprite facing
-    if (velocity.equals(pForward)) {
-      sprite.pause();
-    } else if (velocity.t >= 0) {
+    if (targetVelocity.t > 0) {
       sprite.setState(configManager.moveRightAnimation);
       sprite.play();
-    } else if (velocity.t < 0) {
+    } else if (targetVelocity.t < 0) {
       sprite.setState(configManager.moveLeftAnimation);
+      sprite.play();
+    } else {
+      if (input.heading.x >= 0) {
+        sprite.setState(configManager.idleLeftAnimation);
+      } else {
+        sprite.setState(configManager.idleRightAnimation);
+      }
       sprite.play();
     }
   }
