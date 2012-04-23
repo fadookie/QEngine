@@ -205,6 +205,9 @@ class PlayState extends QGameState {
   }
 
   void cleanup() {
+    for (PlayerController player : players) {
+      player.close();
+    }
     music.close();
   }
 

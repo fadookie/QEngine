@@ -33,6 +33,9 @@ class PlayerController extends GameObjectController {
 
   boolean jumpKeyReleased = false;
 
+  AudioSample shootSound;
+  AudioSample jumpSound;
+
   PlayerController(UnitTemplate template) {
     super(template);
     input = new QInput();
@@ -42,6 +45,9 @@ class PlayerController extends GameObjectController {
     fireHorizontalOffset = radians(fireHorizontalOffsetDegrees);
     oldPosition = new PolarCoord();
     targetVelocity = new PolarCoord();
+
+    shootSound = minim.loadSample("Laser_Shoot2.wav");
+    jumpSound = minim.loadSample("Jump5.wav");
   }
 
   void update() {
@@ -65,6 +71,7 @@ class PlayerController extends GameObjectController {
           numJumps++;
           lastJumpMs = millis();
           setOnGround(false);
+          jumpSound.trigger();
         }
       }
     } else if (!jumpKeyReleased) {
@@ -186,6 +193,8 @@ class PlayerController extends GameObjectController {
     bullet.velocity.t = velocity.t + -(bulletVelocity * input.heading.x);
     bullet.velocity.r = input.heading.y;
     bullets.add(bullet);
+
+    shootSound.trigger();
   }
 
   void setOnGround(boolean _onGround) {
@@ -193,6 +202,12 @@ class PlayerController extends GameObjectController {
     if (onGround) {
       numJumps = 0;
     }
+  }
+
+  //Call before disposing this object, please
+  void close() {
+    shootSound.close();
+    jumpSound.close();
   }
 
   void draw() {
