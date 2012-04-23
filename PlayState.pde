@@ -241,7 +241,7 @@ class PlayState extends QGameState {
   void draw() {
     PVector playerPos = player.position.getCartesianCoords();
 
-    background(0);
+    //background(0);
 
     //Draw starfield
     if (starfield.width > 0) {

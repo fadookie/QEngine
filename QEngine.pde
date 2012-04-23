@@ -10,9 +10,9 @@ Minim minim;
 AudioPlayer music;
 
 //Might need these at some point...
-import processing.opengl.*;
-import javax.media.opengl.GL;
-PGraphicsOpenGL pgl;
+//import processing.opengl.*;
+//import javax.media.opengl.GL;
+//PGraphicsOpenGL pgl;
 
 /**
  * A define for whether or not to build the engine in "debug" mode.
@@ -87,7 +87,7 @@ void setup() {
   //smooth();
 
   minim = new Minim(this);
-  pgl = (PGraphicsOpenGL)g;
+  //pgl = (PGraphicsOpenGL)g;
 
   states = new QStack();
   forward = new PVector(0, 1);
