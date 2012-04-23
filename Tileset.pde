@@ -71,6 +71,8 @@ class Tileset {
                                 myMinY > centerPosition.y ||
                                 myMaxY < centerPosition.y );
 
+        //TODO: Turning off occlusion until I fix it.
+        collides = true;
         if (collides) {
           if ((tile instanceof PImage) && (tile.width > 0)) {
               pushMatrix();

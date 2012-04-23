@@ -132,12 +132,12 @@ class ExampleState extends QGameState {
     //foreground.pos.y = 0;
     foreground.pos.x = -3072; //(1024 tile size * 6 tiles) / 2
     foreground.pos.y = -3072;
-    foreground.setPrefix("planetoid-fg/planetoid-fg_");
+    foreground.loadImagesFromPrefix("planetoid-fg/planetoid-fg_");
 
     background = new Tileset(6, 6);
     background.pos.x = -3072; //(1024 tile size * 6 tiles) / 2
     background.pos.y = -3072;
-    background.setPrefix("planetoid-bg/planetoid-bg_");
+    background.loadImagesFromPrefix("planetoid-bg/planetoid-bg_");
 
     starfield = loadImage("Stars_BG.png");
   }
@@ -224,10 +224,9 @@ class ExampleState extends QGameState {
     background(0);
 
     //Draw starfield
-    /*
     if (starfield.width > 0) {
       float playerPositionRatio = player.position.t / TWO_PI;
-      playerPositionRatio -= 1;//Invert it
+      playerPositionRatio *= -1;//Invert it
       textureMode(NORMALIZED);
       //PTexture tex = pgl.getTexture();
       //pgl.pgl.glTexParameterf(tex.glTarget, PGL.GL_TEXTURE_WRAP_S, PGL.GL_REPEAT);
@@ -242,8 +241,6 @@ class ExampleState extends QGameState {
       image(starfield, playerPositionRatio * width, 0);
       image(starfield, (playerPositionRatio * width) + width, 0);
     }
-    */
-
 
     pushMatrix();
     //Game camera
@@ -253,7 +250,7 @@ class ExampleState extends QGameState {
     //scale(0.1);
     translate(-playerPos.x, -playerPos.y);
 
-    //background.draw(playerPos);
+    background.draw(playerPos);
 
     for (PlayerController player : players) {
       player.draw();

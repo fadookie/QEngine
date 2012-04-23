@@ -27,7 +27,9 @@ class PlayerController extends GameObjectController {
   float bulletVelocity; //Angular move amount in radians
   float lastTimeFiredMs = 0;
   float fireIntervalMs = 125;
-  float fireHeight = 100;
+  float fireHeight = 73;
+  float fireHorizontalOffsetDegrees = 30;
+  float fireHorizontalOffset = 1;
 
   boolean jumpKeyReleased = false;
 
@@ -37,6 +39,7 @@ class PlayerController extends GameObjectController {
     input.heading = right;
     angularMoveAmount = radians(angluarMoveAmountDegrees);
     bulletVelocity = radians(bulletVelocityDegrees);
+    fireHorizontalOffset = radians(fireHorizontalOffsetDegrees);
     oldPosition = new PolarCoord();
     targetVelocity = new PolarCoord();
   }
@@ -175,6 +178,11 @@ class PlayerController extends GameObjectController {
     bullet.friendly = true;
     bullet.position = position.get();
     bullet.position.r += fireHeight;
+    float adjustFactor = fireHorizontalOffset * QMath.getConstantRadialDistanceCoefficient(position.r,fireHorizontalOffset);
+    if (input.heading.x >= 0) {
+      adjustFactor *= -1;
+    }
+    bullet.position.t += adjustFactor;
     bullet.velocity.t = velocity.t + -(bulletVelocity * input.heading.x);
     bullet.velocity.r = input.heading.y;
     bullets.add(bullet);

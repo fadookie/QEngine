@@ -61,9 +61,9 @@ class QSprite {
     updateSize();
     position.r = parentPosition.r + size.x;
     position.t = parentPosition.t ;
+    //FIXME: positioning HACK
     float adjustFactor = radians(60) * QMath.getConstantRadialDistanceCoefficient(position.r,radians(60));
     position.t -= adjustFactor;
-    println("adjustFactor : " + adjustFactor);
     PVector cartesianPosition = position.getCartesianCoords();
     translate(cartesianPosition.x, cartesianPosition.y);
     rotate(rotation);
