@@ -17,6 +17,10 @@ class GameObjectController {
   QSprite sprite;
   String tag = "";
 
+  boolean removeFromScene = false;
+
+  float curSmooth = 0.2; //Smooth curve for velocity, etc.
+
   //Re-using some PVector objects to reduce garbage during calcs in a tight loop
   PVector workVectorA;
   PVector workVectorB;
@@ -75,6 +79,23 @@ class GameObjectController {
   }
 
   void update() {
+    //Update velocity
+    velocity.r += accel.r;
+    velocity.t += accel.t;
+
+    float adjustedAngluarVelocity = velocity.t * getConstantVelocityCoefficient(velocity.t);
+
+    //velocity.r *= deltaTime;
+    //velocity.t *= deltaTime;
+
+    //Update position
+    position.r += velocity.r;
+    position.t += adjustedAngluarVelocity;
+
+    checkCollisions();
+  }
+
+  void checkCollisions() {
     collidesWith.clear();
 
     for (Arc arc : arcs) {
@@ -86,8 +107,19 @@ class GameObjectController {
       }
     }
   }
+  
+  float getConstantVelocityCoefficient(float _targetVelocity) {
+      if (_targetVelocity == pForward.t) {
+        return 1;
+      }
+      float arcLength = position.r * radians(1);
+      float constantVelocityCoefficient = abs(_targetVelocity) / arcLength;
+      //println("arcLength =" +arcLength+ ", _targetVelocity = "+_targetVelocity+",f = " + constantVelocityCoefficient);
+      return constantVelocityCoefficient;
+  }
 
   void draw() {
+    sprite.position = position.getCartesianCoords();
     sprite.draw();
   }
 

@@ -14,7 +14,6 @@ class PlayerController extends GameObjectController {
   float angluarMoveAmountDegrees = 25;
   float angularMoveAmount; //Angular move amount in radians
   float gravity = -1;
-  float curSmooth = 0.2;
   float horizontalMomentum = 0;
 
   boolean onGround = true;
@@ -24,12 +23,20 @@ class PlayerController extends GameObjectController {
   int numJumps = 0;
   int maxJumps = Integer.MAX_VALUE;
 
-  boolean upKeyReleased = false;
+  float bulletVelocityDegrees = 35;
+  float bulletVelocity; //Angular move amount in radians
+  float lastTimeFiredMs = 0;
+  float fireIntervalMs = 125;
+  float fireHeight = 100;
+
+  boolean jumpKeyReleased = false;
 
   PlayerController() {
     super();
     input = new QInput();
+    input.heading = right;
     angularMoveAmount = radians(angluarMoveAmountDegrees);
+    bulletVelocity = radians(bulletVelocityDegrees);
     oldPosition = new PolarCoord();
     targetVelocity = new PolarCoord();
   }
@@ -38,8 +45,8 @@ class PlayerController extends GameObjectController {
     oldPosition.r = position.r;
     oldPosition.t = position.t;
 
-    if (input.upKeyDown) {
-      upKeyReleased = false;
+    if (input.jumpKeyDown) {
+      jumpKeyReleased = false;
 
       //Handle jump logic
       if (!jumpReleased) {
@@ -57,8 +64,8 @@ class PlayerController extends GameObjectController {
           setOnGround(false);
         }
       }
-    } else if (!upKeyReleased) {
-      upKeyReleased = true;
+    } else if (!jumpKeyReleased) {
+      jumpKeyReleased = true;
       jumpReleased = true;
       if (velocity.r > 0) {
         velocity.r = 0;
@@ -66,20 +73,16 @@ class PlayerController extends GameObjectController {
     }
 
     if (input.leftKeyDown) {
+      input.heading = left;
       targetVelocity.t = -angularMoveAmount;
     } else if (input.rightKeyDown) {
+      input.heading = right;
       targetVelocity.t = angularMoveAmount;
     } else {
       targetVelocity.t = pForward.t;
     }
 
-    //My attempt to keep target speed constant, we'll see if it works
-    if (targetVelocity.t != pForward.t) {
-      float arcLength = position.r * radians(1);
-      float constantVelocityCoefficient = abs(targetVelocity.t) / arcLength;
-      targetVelocity.t *= constantVelocityCoefficient;
-      //println("arcLength =" +arcLength+ ", targetVelocity.t = "+targetVelocity.t+",f = " + constantVelocityCoefficient);
-    }
+    targetVelocity.t *= getConstantVelocityCoefficient(targetVelocity.t);
 
     //Apply gravity
     accel.r = gravity;
@@ -109,17 +112,7 @@ class PlayerController extends GameObjectController {
     position.t = QMath.wrapTwoPI(position.t);
 
     //Check collisions, etc.
-    super.update();
-    //collidesWith.clear();
-
-    //for (Arc arc : arcs) {
-    //  if (arc.collidesWith(oldPosition, position)) {
-    //    arc._color = color(255, 0, 0);
-    //    collidesWith.add(arc);
-    //  } else {
-    //    arc._color = color(255, 255, 255);
-    //  }
-    //}
+    checkCollisions();
 
     for (Arc arc : collidesWith) {
       //print(deltaTime + "] collides with arc " + arc);
@@ -147,6 +140,25 @@ class PlayerController extends GameObjectController {
 
     //println("position: "+position+" velocity: " + velocity + ", targetVelocity: " + targetVelocity + " accel: " + accel);
 
+    //Fire gun
+    if (input.shootKeyDown &&
+        (millis() - lastTimeFiredMs > fireIntervalMs)) {
+      shoot();
+      lastTimeFiredMs = millis();
+    }
+
+  }
+
+  void shoot() {
+    Bullet bullet = new Bullet();
+    bullet.friendly = true;
+    bullet.position = position.get();
+    bullet.position.r += fireHeight;
+    bullet.velocity.t = velocity.t + -(bulletVelocity * input.heading.x);
+    bullet.velocity.r = input.heading.y;
+    println(input.heading.x);
+    bullet._color = color(250, 250, 210);
+    bullets.add(bullet);
   }
 
   void setOnGround(boolean _onGround) {

@@ -25,6 +25,8 @@ class ExampleState extends QGameState {
       input.DOWN_KEY = new QKey(DOWN, true);
       input.LEFT_KEY = new QKey(LEFT, true);
       input.RIGHT_KEY = new QKey(RIGHT, true);
+      input.SHOOT_KEY = new QKey('x');
+      input.JUMP_KEY = new QKey('z', ' ');
       input.SCALE_MOD_KEY = new QKey(ALT, true);
       input.SCALE_X_NEGATIVE_KEY = new QKey('j');
       input.SCALE_X_POSITIVE_KEY = new QKey('l');
@@ -33,6 +35,7 @@ class ExampleState extends QGameState {
     }
 
     arcs = new ArrayList<Arc>(); 
+    bullets = new ArrayList<Bullet>(); 
 
     int ring;
 
@@ -160,6 +163,16 @@ class ExampleState extends QGameState {
       player.update();
     }
 
+    Iterator<Bullet> bulletsIt = bullets.iterator();
+    while (bulletsIt.hasNext()) {
+        Bullet bullet = bulletsIt.next();
+        bullet.update();
+        if (bullet.removeFromScene) {
+          bulletsIt.remove();
+        }
+    }
+
+
     //Check for win condition
     if (gameOver) {
       engineChangeState(new QInterstitialState("Game over!", new ExampleState()));
@@ -207,6 +220,10 @@ class ExampleState extends QGameState {
       }
     }
 
+    for (Bullet bullet : bullets) {
+        bullet.draw();
+    } 
+
     foreground.draw(playerPos);
 
     //Draw world core for debugging
@@ -239,7 +256,8 @@ class ExampleState extends QGameState {
   }
 
   void keyPressed() {
-    QKey k = new QKey(key, keyCode);
+    QKey k = new QKey();
+    k.init(key, keyCode);
     //println("Key pressed - " + k);
 
     for (PlayerController player : players) {
@@ -255,7 +273,8 @@ class ExampleState extends QGameState {
   }
 
   void keyReleased() {
-    QKey k = new QKey(key, keyCode);
+    QKey k = new QKey();
+    k.init(key, keyCode);
 
     for (PlayerController player : players) {
       player.input.keyReleased(k);

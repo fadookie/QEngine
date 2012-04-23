@@ -56,6 +56,7 @@ PVector gWorkVectorC;
 PFont helvetica48; //A default font
 
 ArrayList<Arc> arcs;
+ArrayList<Bullet> bullets;
 PolarCoord pForward;
 float fortyFiveRadians;
 

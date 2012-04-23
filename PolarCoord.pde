@@ -12,6 +12,10 @@ class PolarCoord {
     t = _t;
   }
 
+  PolarCoord get() {
+    return new PolarCoord(r, t);
+  }
+
   PVector getCartesianCoords() {
     return new PVector(
         r * cos(t),

@@ -12,6 +12,8 @@ class QInput {
   boolean downKeyDown = false;
   boolean leftKeyDown = false;
   boolean rightKeyDown = false;
+  boolean shootKeyDown = false;
+  boolean jumpKeyDown = false;
   boolean scaleXNegativeKeyDown = false;
   boolean scaleXPositiveKeyDown = false;
   boolean scaleYNegativeKeyDown = false;
@@ -26,6 +28,8 @@ class QInput {
   QKey DOWN_KEY;
   QKey LEFT_KEY;
   QKey RIGHT_KEY;
+  QKey SHOOT_KEY;
+  QKey JUMP_KEY;
   QKey SCALE_MOD_KEY;
   QKey SCALE_X_POSITIVE_KEY;
   QKey SCALE_X_NEGATIVE_KEY;
@@ -39,6 +43,8 @@ class QInput {
     DOWN_KEY = new QKey();
     LEFT_KEY = new QKey();
     RIGHT_KEY = new QKey();
+    SHOOT_KEY = new QKey();
+    JUMP_KEY = new QKey();
     SCALE_MOD_KEY = new QKey();
     SCALE_X_POSITIVE_KEY = new QKey();
     SCALE_X_NEGATIVE_KEY = new QKey();
@@ -65,6 +71,8 @@ class QInput {
     DOWN_KEY = otherInput.DOWN_KEY;
     LEFT_KEY = otherInput.LEFT_KEY;
     RIGHT_KEY = otherInput.RIGHT_KEY;
+    SHOOT_KEY = otherInput.SHOOT_KEY;
+    JUMP_KEY = otherInput.JUMP_KEY;
     SCALE_MOD_KEY = otherInput.SCALE_MOD_KEY;
     SCALE_X_POSITIVE_KEY = otherInput.SCALE_X_POSITIVE_KEY;
     SCALE_X_NEGATIVE_KEY = otherInput.SCALE_X_NEGATIVE_KEY;
@@ -91,6 +99,10 @@ class QInput {
       leftKeyDown = down;
     } else if (RIGHT_KEY.equals(k)) {
       rightKeyDown = down;
+    } else if (SHOOT_KEY.equals(k)) {
+      shootKeyDown = down;
+    } else if (JUMP_KEY.equals(k)) {
+      jumpKeyDown = down;
     } else if (SCALE_MOD_KEY.equals(k)) {
       scaleModKeyDown = down;
     } else if (SCALE_X_NEGATIVE_KEY.equals(k)) {
