@@ -55,7 +55,9 @@ class ExampleState extends QGameState {
     addArc(retardedAngle(327), retardedAngle(80), ring);
     addArc(retardedAngle(5), retardedAngle(343), ring);
     //Walls
-    addArc(0, retardedAngle(344), 554, 900);
+    //addArc(0, retardedAngle(344), 554, 900); //Old way to define a wall
+    addArc(0, retardedAngle(344), 1, 2);
+    addArc(retardedAngle(143), retardedAngle(125), 1, 2);
     
     //Etc...
     ring = 3;
@@ -116,8 +118,15 @@ class ExampleState extends QGameState {
   }
 
   void addArc(float startAngle, float stopAngle, int valence) {
-    float minRadius = worldCoreSize + (ringDistance * valence) + (ringThickness * valence);
-    addArc(startAngle, stopAngle, minRadius, minRadius + ringThickness);
+    addArc(startAngle, stopAngle, radiusFromValence(valence), radiusFromValence(valence) + ringThickness);
+  }
+
+  void addArc(float startAngle, float stopAngle, int startValence, int endValence) {
+    addArc(startAngle, stopAngle, radiusFromValence(startValence), radiusFromValence(endValence) + ringThickness);
+  }
+
+  float radiusFromValence(int valence) {
+    return worldCoreSize + (ringDistance * valence) + (ringThickness * valence);
   }
 
   void addArc(float startAngle, float stopAngle, float minRadius, float maxRadius) {
