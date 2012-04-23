@@ -6,7 +6,7 @@ class ExampleState extends QGameState {
   void setup() {
     players = new PlayerController[numPlayers];
     for (int i = 0; i < players.length; i++) {
-      players[i] = new PlayerController();
+      //players[i] = new PlayerController();
     }
   }
 
@@ -44,7 +44,8 @@ class ExampleState extends QGameState {
   }
 
   void keyPressed() {
-    QKey k = new QKey(key, keyCode);
+    QKey k = new QKey();
+    k.init(key, keyCode);
     //println("Key pressed - " + k);
 
     for (PlayerController player : players) {
@@ -60,7 +61,8 @@ class ExampleState extends QGameState {
   }
 
   void keyReleased() {
-    QKey k = new QKey(key, keyCode);
+    QKey k = new QKey();
+    k.init(key, keyCode);
 
     for (PlayerController player : players) {
       player.input.keyReleased(k);
