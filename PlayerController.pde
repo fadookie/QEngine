@@ -36,7 +36,7 @@ class PlayerController extends GameObjectController {
   PlayerController(UnitTemplate template) {
     super(template);
     input = new QInput();
-    input.heading = right;
+    input.heading = left;
     angularMoveAmount = radians(angluarMoveAmountDegrees);
     bulletVelocity = radians(bulletVelocityDegrees);
     fireHorizontalOffset = radians(fireHorizontalOffsetDegrees);

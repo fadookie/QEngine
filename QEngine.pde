@@ -100,14 +100,6 @@ void setup() {
   imageRegistry     = new HashMap<String,PImage>();
   animationFrameRegistry = new HashMap<String,PImage[]>(); 
 
-  //Load content specified in content.xml
-  contentManager = new ContentManager();
-  contentManager.loadContent();
-
-  //Load config
-  configManager = new ConfigManager(); 
-  configManager.loadConfig();
-
   gWorkVectorA = new PVector();
   gWorkVectorB = new PVector();
   gWorkVectorC = new PVector();
@@ -129,7 +121,7 @@ void setup() {
   */
 
   /** Begin initial game state - Replace "ExampleState" with your custom gamestate you want to run first. */
-  engineChangeState(new ExampleState());
+  engineChangeState(new LoadScreenState());
 }
 
 /**

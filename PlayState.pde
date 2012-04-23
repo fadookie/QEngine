@@ -1,4 +1,4 @@
-class ExampleState extends QGameState {
+class PlayState extends QGameState {
   boolean gameOver = false;
   int numPlayers = 1;
   PlayerController[] players;
@@ -8,6 +8,14 @@ class ExampleState extends QGameState {
   PImage starfield;
 
   void setup() {
+    //Load content specified in content.xml
+    contentManager = new ContentManager();
+    contentManager.loadContent();
+
+    //Load config
+    configManager = new ConfigManager(); 
+    configManager.loadConfig();
+
     players = new PlayerController[numPlayers];
     for (int i = 0; i < players.length; i++) {
       players[i] = new PlayerController(configManager.getUnitTemplate("Player"));
@@ -15,7 +23,9 @@ class ExampleState extends QGameState {
     }
 
     player = players[0];
-    player.position.r = 308;
+    //Start the player near the rocket ship
+    player.position.r = 2763;
+    player.position.t = 5.13441;
 
     {
       QInput input = player.input;
