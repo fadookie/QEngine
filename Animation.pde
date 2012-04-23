@@ -108,6 +108,10 @@ class Animation {
       }
     }
   }
+
+  String toString() {
+    return "Animation is " + (playing ? "playing" : "paused") + ". Current frameset ["+state+"]: "+animationStates.get(state);
+  }
 }
 
 class AnimationState {

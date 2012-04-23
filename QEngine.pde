@@ -24,6 +24,9 @@ float lastUpdateTimeMs = 0;
  * Please don't access this directly, use the engine state functions. */
 QStack states;
 
+ContentManager contentManager;
+ConfigManager configManager;
+
 //Some unit vectors that should always be the same, for calculations. Modify these on peril of your own sanity.
 /** Vector facing the top of the screen */
 PVector forward;
@@ -41,6 +44,7 @@ PVector centerOfScreen;
 /** Default length of time in milliseconds that InterstitialStates will display before advancing to the next state. */
 float interstitialLengthMs = 1000;
 
+HashMap<String, PImage> imageRegistry; //Load a PImage once and throw it in here to prevent having to load it again
 HashMap<String, PImage[]> animationFrameRegistry; //Load a PImage[] once and throw it in here to prevent having to load it again
 
 /**
@@ -85,6 +89,17 @@ void setup() {
   right = new PVector(-1, 0);
   zero = new PVector(0, 0);
   centerOfScreen = new PVector(width / 2, height / 2);
+
+  imageRegistry     = new HashMap<String,PImage>();
+  animationFrameRegistry = new HashMap<String,PImage[]>(); 
+
+  //Load content specified in content.xml
+  contentManager = new ContentManager();
+  contentManager.loadContent();
+
+  //Load config
+  configManager = new ConfigManager(); 
+  configManager.loadConfig();
 
   gWorkVectorA = new PVector();
   gWorkVectorB = new PVector();

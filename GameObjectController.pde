@@ -30,6 +30,11 @@ class GameObjectController {
     construct();
   }
 
+  GameObjectController(UnitTemplate template){
+    construct();
+    sprite.setAnimationTemplate(template.animationTemplate);
+  }
+
   void construct() {
     heading = new PVector();
 

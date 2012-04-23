@@ -10,7 +10,7 @@ class ExampleState extends QGameState {
   void setup() {
     players = new PlayerController[numPlayers];
     for (int i = 0; i < players.length; i++) {
-      players[i] = new PlayerController();
+      players[i] = new PlayerController(configManager.getUnitTemplate("Player"));
       players[i].center = zero;
     }
 
@@ -132,12 +132,12 @@ class ExampleState extends QGameState {
     //foreground.pos.y = 0;
     foreground.pos.x = -3072; //(1024 tile size * 6 tiles) / 2
     foreground.pos.y = -3072;
-    foreground.loadImagesFromPrefix("planetoid-fg/planetoid-fg_");
+    foreground.setPrefix("planetoid-fg/planetoid-fg_");
 
     background = new Tileset(6, 6);
     background.pos.x = -3072; //(1024 tile size * 6 tiles) / 2
     background.pos.y = -3072;
-    background.loadImagesFromPrefix("planetoid-bg/planetoid-bg_");
+    background.setPrefix("planetoid-bg/planetoid-bg_");
 
     starfield = loadImage("Stars_BG.png");
   }
@@ -256,6 +256,7 @@ class ExampleState extends QGameState {
     //background.draw(playerPos);
 
     for (PlayerController player : players) {
+      player.draw();
       if (DEBUG) {
         player.debugDraw();
       }

@@ -31,8 +31,8 @@ class PlayerController extends GameObjectController {
 
   boolean jumpKeyReleased = false;
 
-  PlayerController() {
-    super();
+  PlayerController(UnitTemplate template) {
+    super(template);
     input = new QInput();
     input.heading = right;
     angularMoveAmount = radians(angluarMoveAmountDegrees);
@@ -147,6 +147,16 @@ class PlayerController extends GameObjectController {
       lastTimeFiredMs = millis();
     }
 
+    //Set sprite facing
+    if (velocity.equals(pForward)) {
+      sprite.pause();
+    } else if (velocity.t >= 0) {
+      sprite.setState(configManager.moveRightAnimation);
+      sprite.play();
+    } else if (velocity.t < 0) {
+      sprite.setState(configManager.moveLeftAnimation);
+      sprite.play();
+    }
   }
 
   void shoot() {
@@ -168,6 +178,5 @@ class PlayerController extends GameObjectController {
 
   void draw() {
     super.draw();
-
   }
 }

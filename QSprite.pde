@@ -10,6 +10,7 @@ class QSprite {
   static final int RECT = 1;
   static final int ELLIPSE = 2;
   static final int PIMAGE = 3;
+  static final int ANIM = 4;
 
   int type;
   PVector position;
@@ -46,6 +47,12 @@ class QSprite {
     size.y = image.height;
   }
 
+  void setAnimationTemplate(AnimationTemplate animationTemplate) {
+    type = ANIM;
+    animation = new Animation(animationTemplate);
+    println(animation);
+  }
+
   void draw() {
     pushMatrix();
     pushStyle();
@@ -64,11 +71,46 @@ class QSprite {
         imageMode(imageMode);
         image(image, 0, 0, size.x, size.y);
       }
+    } else if (ANIM == type) {
+      updateSize();
+      animation.draw();
     } else {
       println("The sprite type " + type + " is not valid. Not drawing.");
     }
 
     popStyle();
     popMatrix();
+  }
+
+  void play() {
+    if (ANIM == type) {
+      animation.play();
+    }
+  }
+
+  void pause() {
+    if (ANIM == type) {
+      animation.pause();
+    }
+  }
+
+  void setState(int state) {
+    if (ANIM == type) {
+      animation.setState(state);
+    }
+  }
+
+  boolean isPlaying() {
+    if (ANIM == type) {
+      return animation.isPlaying();
+    } else {
+      return false;
+    }
+  }
+
+  void updateSize() {
+    if (ANIM == type) {
+      size = animation.getCurrentSize();
+    }
   }
 }

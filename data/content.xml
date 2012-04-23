@@ -1,0 +1,52 @@
+<Content>
+	<AnimationFrameset tag="Player-run">
+        <PImage fileName="Animations/Player/Run/Hero-Run0001.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0002.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0003.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0004.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0005.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0006.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0007.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0008.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0009.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0010.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0011.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0012.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0013.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0014.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0015.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0016.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0017.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0018.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0019.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0020.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0021.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0022.png"/>
+        <PImage fileName="Animations/Player/Run/Hero-Run0023.png"/>
+    </AnimationFrameset>
+	<AnimationFrameset tag="Player-idle">
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0001.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0002.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0003.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0004.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0005.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0006.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0007.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0008.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0009.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0010.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0011.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0012.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0013.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0014.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0015.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0016.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0017.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0018.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0019.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0020.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0021.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0022.png"/>
+        <PImage fileName="Animations/Player/Idle/Hero-Idle0023.png"/>
+    </AnimationFrameset>
+</Content>

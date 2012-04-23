@@ -35,6 +35,10 @@ class UnitTemplate {
       XML childElement = xmlElement.getChild(i);
       String className = childElement.getName();
 
+      if (!(className instanceof String)) {
+        continue;
+      }
+
       if (className.equals("Description")) { 
         description = childElement.getContent();
 
@@ -46,6 +50,9 @@ class UnitTemplate {
         for (int j = 0; j < numTargets; j++) {
           XML targetElement = childElement.getChild(j);
           String targetElementClassName = targetElement.getName();
+          if (!(targetElementClassName instanceof String)) {
+            continue;
+          }
           if (targetElementClassName.equals("Target")) {
             int id = targetElement.getInt("id");
             validTargets.add(id);
@@ -101,6 +108,9 @@ class AnimationTemplate {
     for (int i = 0; i < numStates; i++) {
       XML animationStateElement = xmlElement.getChild(i);
       String className = animationStateElement.getName();
+      if (!(className instanceof String)) {
+        continue;
+      }
       if (className.equals("AnimationState")) { 
         int stateId = animationStateElement.getInt("id");
         animationStates.put(stateId, new AnimationState(animationStateElement));

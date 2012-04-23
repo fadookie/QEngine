@@ -13,7 +13,7 @@ class ContentManager {
       XML xmlElement = loadedXML.getChild(i);
       String className = xmlElement.getName();
              
-      if (className.equals("AnimationFrameset")) { 
+      if (className instanceof String && className.equals("AnimationFrameset")) { 
           String tag      = xmlElement.getString("tag");
           int childCount  = xmlElement.getChildCount();
           ArrayList<String> imageNames = new ArrayList<String>();
@@ -21,7 +21,7 @@ class ContentManager {
           for (int j = 0; j < childCount; j++) {
             XML childElement = xmlElement.getChild(j);
             String childClassName = childElement.getName();
-            if (childClassName.equals("PImage")) { 
+            if (childClassName instanceof String && childClassName.equals("PImage")) { 
               imageNames.add(childElement.getString("fileName"));
             } else {
               println("[ContentManager.deserialize()] Warning: XML child element " + childClassName + " not recognized.");
@@ -40,6 +40,10 @@ class ContentManager {
    * otherwise load it and store it in the registry
    */
   void loadAnimationFrames(String tag, ArrayList<String> fileNames) {
+    if (!(tag instanceof String)) {
+      println("ContentManager.loadAnimationFrames was passed a null tag");
+      return;
+    }
     int imageCount = fileNames.size();
     if (imageCount > 0) {
       if (!animationFrameRegistry.containsKey(tag)) {
