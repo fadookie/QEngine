@@ -6,7 +6,9 @@
  */
 
 import ddf.minim.*;
+import com.eliotlash.gme_p5.*;
 Minim minim;
+GameMusicEmu gme;
 AudioPlayer music;
 
 //Might need these at some point...
@@ -87,6 +89,7 @@ void setup() {
   //smooth();
 
   minim = new Minim(this);
+  gme = new GameMusicEmu(this);
   //pgl = (PGraphicsOpenGL)g;
 
   states = new QStack();
@@ -250,5 +253,6 @@ void stop() {
     enginePopState();
   }
   minim.stop();
+  gme.stop();
   super.stop();
 }

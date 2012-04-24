@@ -153,8 +153,9 @@ class PlayState extends QGameState {
 
     starfield = loadImage("Stars_BG.png");
 
-    music = minim.loadFile("daniel.wav");
-    music.loop();
+    gme.playFile("daniel.nsf");
+    //music = minim.loadFile("daniel.wav");
+    //music.loop();
     //music.play();
   }
 
@@ -208,7 +209,7 @@ class PlayState extends QGameState {
     for (PlayerController player : players) {
       player.close();
     }
-    music.close();
+    //music.close();
   }
 
   void pause() {
