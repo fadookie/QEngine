@@ -8,6 +8,7 @@
 import ddf.minim.*;
 Minim minim;
 AudioPlayer music;
+QSound soundManager;
 
 //Might need these at some point...
 //import processing.opengl.*;
@@ -18,7 +19,7 @@ AudioPlayer music;
  * A define for whether or not to build the engine in "debug" mode.
  * This generally means more output to the console and possibly some extra stuff drawn to the screen.
  */
-static final boolean DEBUG = false;
+boolean DEBUG = false;
 
 /** This property holds how much time elapsed since QGameState.update() was last called, in milliseconds.
  * Please don't modify this from your code. */
@@ -87,6 +88,7 @@ void setup() {
   //smooth();
 
   minim = new Minim(this);
+  soundManager = new QSound();
   //pgl = (PGraphicsOpenGL)g;
 
   states = new QStack();
@@ -249,6 +251,7 @@ void stop() {
   while (engineGetState() != null) {
     enginePopState();
   }
+  soundManager.close();
   minim.stop();
   super.stop();
 }

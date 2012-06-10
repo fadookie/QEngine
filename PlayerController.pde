@@ -33,8 +33,8 @@ class PlayerController extends GameObjectController {
 
   boolean jumpKeyReleased = false;
 
-  AudioSample shootSound;
-  AudioSample jumpSound;
+  String shootSound = "Laser_Shoot2.wav";
+  String jumpSound = "Jump5.wav";
 
   PlayerController(UnitTemplate template) {
     super(template);
@@ -46,8 +46,8 @@ class PlayerController extends GameObjectController {
     oldPosition = new PolarCoord();
     targetVelocity = new PolarCoord();
 
-    shootSound = minim.loadSample("Laser_Shoot2.wav");
-    jumpSound = minim.loadSample("Jump5.wav");
+    soundManager.fetchOrLoadSample(shootSound);
+    soundManager.fetchOrLoadSample(jumpSound);
   }
 
   void update() {
@@ -71,7 +71,7 @@ class PlayerController extends GameObjectController {
           numJumps++;
           lastJumpMs = millis();
           setOnGround(false);
-          jumpSound.trigger();
+          soundManager.playSample(jumpSound);
         }
       }
     } else if (!jumpKeyReleased) {
@@ -194,7 +194,7 @@ class PlayerController extends GameObjectController {
     bullet.velocity.r = input.heading.y;
     bullets.add(bullet);
 
-    shootSound.trigger();
+    soundManager.playSample(shootSound);
   }
 
   void setOnGround(boolean _onGround) {
@@ -206,8 +206,6 @@ class PlayerController extends GameObjectController {
 
   //Call before disposing this object, please
   void close() {
-    shootSound.close();
-    jumpSound.close();
   }
 
   void draw() {

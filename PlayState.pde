@@ -333,6 +333,8 @@ class PlayState extends QGameState {
         } 
         catch (Exception e) {
         }
+      } else if ('D' == key) {
+        DEBUG = !DEBUG;
       }
       //DEBUG keys
       if (DEBUG) {
