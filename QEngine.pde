@@ -7,7 +7,6 @@
 
 import ddf.minim.*;
 Minim minim;
-AudioPlayer music;
 QSound soundManager;
 
 //Might need these at some point...

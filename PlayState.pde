@@ -6,6 +6,7 @@ class PlayState extends QGameState {
   Tileset background;
   Tileset foreground;
   PImage starfield;
+  String music = "daniel.wav";
 
   int screenshotCount = 0;
 
@@ -153,9 +154,8 @@ class PlayState extends QGameState {
 
     starfield = loadImage("Stars_BG.png");
 
-    music = minim.loadFile("daniel.wav");
-    music.loop();
-    //music.play();
+    soundManager.startMusic(music, true /*loop*/);
+    //soundManager.setMusicVolume(0.6);
   }
 
   //Convert retarded counterclockwise degrees from my retarded protractor to clockwise radians
@@ -208,7 +208,6 @@ class PlayState extends QGameState {
     for (PlayerController player : players) {
       player.close();
     }
-    music.close();
   }
 
   void pause() {
