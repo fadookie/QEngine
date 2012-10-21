@@ -8,7 +8,6 @@ class IggState extends QGameState {
     players = new PlayerController[numPlayers];
     for (int i = 0; i < players.length; i++) {
       players[i] = new PlayerController();
-      players[i].sprite = new QSprite(1);
     }
   }
 
@@ -25,7 +24,6 @@ class IggState extends QGameState {
     for (PlayerController player : players) {
       player.sprite.position.x = mouseX;
       player.sprite.position.y = mouseY;
-      player.sprite.size = new PVector(100, 100);
       player.update();
     }
     //Check for win condition

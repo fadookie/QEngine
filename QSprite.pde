@@ -9,11 +9,13 @@ class QSprite {
   static final int INVALID = 0;
   static final int RECT = 1;
   static final int ELLIPSE = 2;
+  static final int STATICIMAGE = 3;
 
   int type;
   PVector position;
   PVector size;
   color fillColor;
+  PImage image;
 
   //For dummy objects
   QSprite() {
@@ -22,6 +24,13 @@ class QSprite {
 
   QSprite(int _type) {
     construct(_type);
+  }
+
+  QSprite(String file) {
+    construct(STATICIMAGE);
+    image = loadImage(file);
+    size.x = image.width;
+    size.y = image.height;
   }
 
   void construct(int _type) {
@@ -39,11 +48,14 @@ class QSprite {
     fill(fillColor);
 
     if (RECT == type) {
-      rectMode(CENTER);
+      rectMode(CORNER);
       rect(position.x, position.y, size.x, size.y);
     } else if (ELLIPSE == type) {
       ellipseMode(CENTER);
       ellipse(position.x, position.y, size.x, size.y);
+    } else if (STATICIMAGE == type) {
+      imageMode(CENTER);
+      image(image, 0, 0, size.x, size.y);
     } else {
       println("The sprite type " + type + " is not valid. Not drawing.");
     }

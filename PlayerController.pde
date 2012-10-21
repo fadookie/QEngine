@@ -8,7 +8,9 @@ class PlayerController extends GameObjectController {
   QInput input;
 
   PlayerController() {
+    super();
     input = new QInput();
+    sprite = new QSprite("sister.png");
   }
 
   void update() {
