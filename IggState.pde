@@ -1,7 +1,9 @@
 class IggState extends QGameState {
   boolean gameOver = false;
-  int numPlayers = 2;
+  int numPlayers = 1;
+  int initialEnemies = 10;
   PlayerController[] players;
+  ArrayList<EnemyController> enemies = new ArrayList();
 
   void setup() {
     println("IGG RULES!");
@@ -26,6 +28,27 @@ class IggState extends QGameState {
       player.sprite.position.y = mouseY;
       player.update();
     }
+
+    //add enemy if needed
+    if (enemies.size() < initialEnemies) {
+      enemies.add(new EnemyController(players[0].sprite.position));
+      println("add enemy");
+    }
+
+    Iterator<EnemyController> i = enemies.iterator();
+    while (i.hasNext()) {
+       EnemyController enemy = i.next(); // must be called before you can call i.remove()
+          enemy.update();
+
+          //destroy OOB enemeies
+          if ((enemy.sprite.position.x < 0 || enemy.sprite.position.x > width) || (enemy.sprite.position.y < 0 || enemy.sprite.position.y > height)) {
+            i.remove();
+          }
+    }
+
+    for (EnemyController enemy : enemies) {
+
+    }
     //Check for win condition
     if (gameOver) {
       engineChangeState(new QInterstitialState("Game over!", new IggState()));
@@ -38,6 +61,9 @@ class IggState extends QGameState {
 
     for (PlayerController player : players) {
       player.draw();
+    }
+    for (EnemyController enemy : enemies) {
+      enemy.draw();
     }
 
     //Debug draw
