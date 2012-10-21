@@ -39,6 +39,9 @@ class IggState extends QGameState {
     while (i.hasNext()) {
        EnemyController enemy = i.next(); // must be called before you can call i.remove()
           enemy.update();
+          if (enemy.collidesWith(players[0])) {
+            println("collision");
+          }
 
           //destroy OOB enemeies
           if ((enemy.sprite.position.x < 0 || enemy.sprite.position.x > width) || (enemy.sprite.position.y < 0 || enemy.sprite.position.y > height)) {
@@ -46,12 +49,14 @@ class IggState extends QGameState {
           }
     }
 
-    for (EnemyController enemy : enemies) {
-
+    //Game ends when music ends
+    if (!player.isPlaying()) {
+      gameOver = true;
     }
+
     //Check for win condition
     if (gameOver) {
-      engineChangeState(new QInterstitialState("Game over!", new IggState()));
+      engineChangeState(new QInterstitialState("The End.\n\nIGG Rules!", new IggState()));
     }
   }
 
@@ -91,6 +96,9 @@ class IggState extends QGameState {
     if (CODED == key) {
     } else {
       //DEBUG keys
+        if ('E' == key) {
+          gameOver = true;
+        }
       if (DEBUG) {
       } 
     }

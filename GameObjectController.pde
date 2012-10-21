@@ -59,6 +59,44 @@ class GameObjectController {
     sprite.size.y = y;
   }
 
+  boolean collidesWith(GameObjectController otherObject) {
+    boolean collides = false;
+    PVector currentPosition = getPosition();
+    PVector size = getSize();
+    PVector otherPosition = otherObject.getPosition();
+    
+    float myMinX = currentPosition.x;
+    float myMaxX = currentPosition.x + size.x;
+    float myMinY = currentPosition.y;
+    float myMaxY = currentPosition.y + size.y;
+    
+    float theirMinX = otherPosition.x;
+    float theirMaxX = otherPosition.x + size.x;
+    float theirMinY = otherPosition.y;
+    float theirMaxY = otherPosition.y + size.y;
+    
+    /*myMinX = currentPosition.x;
+    myMaxX = currentPosition.x + size.x;
+    myMinY = currentPosition.y;
+    myMaxY = currentPosition.y + size.y;
+    
+    theirMinX = otherPosition.x;
+    theirMaxX = otherPosition.x + otherBRect.size.x;
+    theirMinY = otherPosition.y;
+    theirMaxY = otherPosition.y + otherBRect.size.y;*/
+    
+    if(  myMinX > theirMaxX ||
+         myMaxX < theirMinX ||
+         myMinY > theirMaxY ||
+         myMaxY < theirMinY ) {
+       collides = false;  
+     } else {
+       collides = true;
+     }
+    
+    return collides;
+  }
+
   void update() {
   }
 

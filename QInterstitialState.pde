@@ -69,7 +69,6 @@ class QInterstitialState extends QGameState {
   void draw() {
     smooth();
     background(backgroundColor);
-    textFont(helvetica48);
     textAlign(CENTER);
     fill(255);
     text(message, width/2, (height/2 + verticalOffset)); 
