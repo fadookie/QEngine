@@ -57,7 +57,7 @@ PFont helvetica48; //A default font
 
 void setup() {
   /** Set your size here */
-  size(1024, 768);
+  size(1024, 768, OPENGL);
   smooth();
 
   states = new QStack();
