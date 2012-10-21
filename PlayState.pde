@@ -246,7 +246,7 @@ class PlayState extends QGameState {
     if (starfield.width > 0) {
       float playerPositionRatio = player.position.t / TWO_PI;
       playerPositionRatio *= -1;//Invert it
-      textureMode(NORMALIZED);
+      textureMode(NORMAL);
       //PTexture tex = pgl.getTexture();
       //pgl.pgl.glTexParameterf(tex.glTarget, PGL.GL_TEXTURE_WRAP_S, PGL.GL_REPEAT);
       //beginShape();

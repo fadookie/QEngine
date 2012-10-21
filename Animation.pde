@@ -87,7 +87,7 @@ class Animation {
         uMin = 1;
         uMax = 0;
       }
-      textureMode(NORMALIZED);
+      textureMode(NORMAL);
       pushStyle();
       noStroke();
       noFill();
