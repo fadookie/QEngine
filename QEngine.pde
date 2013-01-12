@@ -6,7 +6,6 @@
  */
 
 import ddf.minim.*;
-AudioPlayer player;
 Minim minim;
 
 /**
@@ -83,13 +82,6 @@ void setup() {
 
 
   minim = new Minim(this);
-  // load a file, give the AudioPlayer buffers that are 1024 samples long
-  // player = minim.loadFile("groove.mp3");
-  
-  // load a file, give the AudioPlayer buffers that are 2048 samples long
-  player = minim.loadFile("song.mp3", 2048);
-  // play the file
-  player.play();
   
 
   /** Begin initial game state - Replace "ExampleState" with your custom gamestate you want to run first. */

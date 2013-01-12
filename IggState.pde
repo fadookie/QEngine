@@ -2,8 +2,10 @@ class IggState extends QGameState {
   boolean gameOver = false;
   int numPlayers = 1;
   int initialEnemies = 10;
+  int screenTintRed = 0;
   PlayerController[] players;
   ArrayList<EnemyController> enemies = new ArrayList();
+  AudioPlayer player;
 
   void setup() {
     println("IGG RULES!");
@@ -11,9 +13,17 @@ class IggState extends QGameState {
     for (int i = 0; i < players.length; i++) {
       players[i] = new PlayerController();
     }
+    // load a file, give the AudioPlayer buffers that are 1024 samples long
+    // player = minim.loadFile("groove.mp3");
+    
+    // load a file, give the AudioPlayer buffers that are 2048 samples long
+    player = minim.loadFile("song.mp3", 2048);
+    // play the file
+    player.play();
   }
 
   void cleanup() {
+    player.close();
   }
 
   void pause() {
@@ -40,7 +50,9 @@ class IggState extends QGameState {
        EnemyController enemy = i.next(); // must be called before you can call i.remove()
           enemy.update();
           if (enemy.collidesWith(players[0])) {
-            println("collision");
+            screenTintRed = 255;
+            players[0].damage();
+
           }
 
           //destroy OOB enemeies
@@ -50,13 +62,15 @@ class IggState extends QGameState {
     }
 
     //Game ends when music ends
-    if (!player.isPlaying()) {
+    if (!player.isPlaying() || players[0].health < 1) {
       gameOver = true;
     }
 
+
+
     //Check for win condition
     if (gameOver) {
-      engineChangeState(new QInterstitialState("The End.\n\nIGG Rules!", new IggState()));
+      engineChangeState(new QInterstitialState("The End.\n\nIGG Rules!\n\nClick to play again.", new IggState()));
     }
   }
 
@@ -69,6 +83,21 @@ class IggState extends QGameState {
     }
     for (EnemyController enemy : enemies) {
       enemy.draw();
+    }
+
+    //HUD
+    pushStyle();
+    textAlign(CENTER);
+    fill(255, 0, 0);
+    text(players[0].health + " <3", 0, 0); 
+    popStyle();
+
+
+    if (screenTintRed > 0) {
+      fill(255, 0, 0, screenTintRed);
+      rectMode(CORNER);
+      rect(0, 0, width, height);
+      screenTintRed -= 8;
     }
 
     //Debug draw
